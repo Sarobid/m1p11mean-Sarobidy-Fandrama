@@ -21,10 +21,6 @@ const personnesSchema = new Schema({
         type: String,
         required: false
     },
-    photo:{
-        type : String,
-        required : false
-    },
     tel:{
         type : String,
         required:true
