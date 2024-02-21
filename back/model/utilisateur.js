@@ -7,7 +7,7 @@ const utilisateursSchema = new Schema({
     },
     email:{
         type : String,
-        required : true,
+        required : [true,"L'email est requise"],
         unique : true
     },
     mdp:{
@@ -22,7 +22,7 @@ const utilisateursSchema = new Schema({
     personne_id: {
         type: Schema.Types.ObjectId,
         ref: 'personne',
-        required: true
+        required: [true,"Personne est requise"]
     },
     delete : {
         type : Boolean,

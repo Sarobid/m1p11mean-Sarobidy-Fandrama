@@ -7,7 +7,7 @@ const personnesSchema = new Schema({
     },
     nom: {
         type: String,
-        required: true
+        required: [true,"Le nom est requise"]
     },
     prenom: {
         type: String
@@ -15,7 +15,18 @@ const personnesSchema = new Schema({
     },
     dateNaissance :{
         type: Date,
-        required: true
+        required: [true, "La date de naissance est requise"],
+        validate:{
+            validator: function(value) {
+                let age = new Date().getFullYear() - value.getFullYear();
+                let is = true;
+                if(age <=17){
+                    is = false;
+                }
+                return is;
+            },
+            message: "Les personnes de moins de 18 ans ne sont pas autorisées"
+        }
     },
     cin:{
         type: String,
@@ -23,7 +34,7 @@ const personnesSchema = new Schema({
     },
     tel:{
         type : String,
-        required:true
+        required:[true,"Le numero de telephone est requise"]
     },
     sexe_id: {
         type: Schema.Types.ObjectId,
