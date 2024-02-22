@@ -21,8 +21,10 @@ export class InscriptionComponent implements OnInit {
       tel: ''
     },
     email:''
+    ,url:'http://localhost:4200/inscription/'
   }
   erreurs: any = {};
+  validation:boolean = false;
 
   constructor() { }
 
@@ -34,10 +36,9 @@ export class InscriptionComponent implements OnInit {
   }
   onSubmit() {
     utilisateurService.nouveauClient(this.utilisateur,(data:any)=>{
-      alert(JSON.stringify(data));
+      this.validation = true;
     },(err:any)=>{
       this.erreurs = err.erreur;
-      alert(JSON.stringify(this.erreurs))
     })
   }
   effacerErreur(champ: string) {
