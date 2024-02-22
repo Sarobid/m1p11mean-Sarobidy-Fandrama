@@ -3,15 +3,26 @@ var serv = require("./../../service/errorService");
 
 module.exports = function (app) {
     app.post("/utilisateur/client",(req,res)=>{
-        utilisateurServ.nouveauUtilisateur("CLIENT",req.body.personne,req.body.email)
+        utilisateurServ.nouveauUtilisateur("CLIENT",req.body.personne,req.body.email,req.body.url)
         .then(data => {
             res.json(data);
         }).catch(err => {
             res.status(err.status || 400);
-            ///console.log(err);
             serv.analyseError(err).then(error=>{res.send(error)})
         });
     })
+
+    //url pour mot de passe
+    app.get("/utilisateur/valid-mdp/:id",(req,res)=>{
+        utilisateurServ.isUtilisateurValid(req.params.id)
+        .then(data => {
+            res.json(data);
+        }).catch(err => {
+            res.status(err.status || 400);
+            serv.analyseError(err).then(error=>{res.send(error)})
+        });
+    });
+
 
     app.post("/utilisateur/update-mdp/:id",(req,res)=>{
         utilisateurServ.updateMotdePasse(req.params.id,req.body.mdp,req.body.mdpConf)

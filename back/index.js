@@ -14,5 +14,6 @@ app.use(cors(corsOptions));
 require("./controlleur/sexe/sexe.controlleur")(app);
 require("./controlleur/personne/personne.controlleur")(app);
 require("./controlleur/utilisateur/utilisateur.controlleur")(app);
+require("./controlleur/auth/auth.controlleur")(app);
 
 server.start(app);
