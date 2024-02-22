@@ -1,4 +1,23 @@
 var utilisateurService = {
+    login : (data,response,afficheError)=>{
+        fetch(url() + "/auth", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(data)
+        }).then(res => {
+            if(res.ok){
+                res.json().then(data => {
+                    response(data);
+                })
+            }else{
+                res.json().then(data => {
+                    afficheError(data);
+                })
+            }
+        })
+    },
     validationMotDePasse : (id,data,response,afficheError)=>{
         fetch(url() + "/utilisateur/update-mdp/"+id, {
             method: 'POST',
