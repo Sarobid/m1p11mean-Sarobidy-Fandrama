@@ -48,7 +48,7 @@ async function controlleMotdePasse(mdp) {
 async function nouveauUtilisateur(roles, personne, email,http) {
     let is = true;
     try {
-        servEmail.estEmail(email);
+        await servEmail.estEmail(email);
         let u = await findByEmail(email);
         if (u === null) {
             let rol = await roleServ.findByNom(roles);
