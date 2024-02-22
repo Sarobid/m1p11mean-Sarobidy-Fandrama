@@ -4,6 +4,32 @@ var persServ = require("./../personne/personne.service")
 const Utilisateur = require("./../../model/utilisateur");
 var servEmail = require("./../../service/email.service")
 
+async function verificationEmailEtMdp(email,mdp){
+    try {
+        await servEmail.estEmail(email);
+        if(mdp === ''){
+            let err = new Error("Le mot de passe est requise");
+            err.name = "mdp";
+            throw err;
+        }
+        let utilisateur = await findByEmail(email);
+        if(utilisateur === null){
+            let err = new Error("Email incorrecte");
+            err.name = "email";
+            throw err;
+        }
+        let hashMdp = "";
+        if(utilisateur.mdp != null){
+            hashMdp = utilisateur.mdp;
+        }
+        await comaparaisonMotdePasse(mdp,hashMdp);
+        return utilisateur;
+    } catch (error) {
+        throw error;
+    }
+}
+exports.verificationEmailEtMdp = verificationEmailEtMdp;
+
 async function updateMotdePasse(utilisateur_id, mdp, mdpConf) {
     try {
         let utilisateur = await findById(utilisateur_id);
@@ -23,9 +49,22 @@ async function updateMotdePasse(utilisateur_id, mdp, mdpConf) {
 }
 exports.updateMotdePasse = updateMotdePasse;
 
+async function comaparaisonMotdePasse(mdp,mdpHash){
+    try {
+        let rep = await bcrypt.compare(mdp, mdpHash);
+        if(rep === false){
+            let err = new Error("mot de passe incorrecte");
+            err.name = "mdp";
+            throw err;
+        }  
+    } catch (error) {
+        throw error;
+    }
+    
+}
 async function encodeMotDePasse(mdp) {
     try {
-        let mdpCrypt = await bcrypt.hash(mdp, 10);
+        let mdpCrypt = await bcrypt.hash(mdp,10);
         return mdpCrypt;
     } catch (error) {
         throw error;

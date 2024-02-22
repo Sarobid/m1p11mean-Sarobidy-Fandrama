@@ -17,7 +17,7 @@ var mailOptions = {
 async function estEmail(val) {
     var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if(regex.test(val) === false){
-        let err = new Error("Email invalide");
+        let err = new Error("Email incorrecte");
         err.name = "email";
         throw err;
     }
