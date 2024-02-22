@@ -136,8 +136,7 @@ exports.create = create;
 
 async function findByEmail(email) {
     try {
-        let utilisateur = await Utilisateur.findOne({ email: email })
-            .populate("role_id");
+        let utilisateur = await Utilisateur.findOne({ email: email });
         return utilisateur;
     } catch (error) {
         throw error;
@@ -162,6 +161,20 @@ async function isUtilisateurValid(id) {
 }
 exports.isUtilisateurValid = isUtilisateurValid;
 
+async function findByIdSimpleRole(id){
+    try {
+        let utilisateur = await Utilisateur.findOne({ _id: id })
+                .populate("role_id");
+        utilisateur = utilisateur.toJSON();
+        delete utilisateur.mdp;
+        utilisateur.delete;
+        return utilisateur;
+    } catch (error) {
+        throw error;
+    }
+}
+exports.findByIdSimpleRole = findByIdSimpleRole;
+
 async function findById(id) {
     try {
         let utilisateur = null;
@@ -169,6 +182,7 @@ async function findById(id) {
             utilisateur = await Utilisateur.findOne({ _id: id })
                 .populate("role_id");
         } catch (error) {
+            console.log(error)
             let err = new Error("utilisateur n'existe pas");
             err.name = "utilisateur";
             throw err;
@@ -183,7 +197,7 @@ async function findById(id) {
         utilisateur.personne_id = pers;
         //delete utilisateur.role_id;
         delete utilisateur.mdp;
-        delete utilisateur.delete;
+        utilisateur.delete;
         return utilisateur;
     } catch (error) {
         throw error;
