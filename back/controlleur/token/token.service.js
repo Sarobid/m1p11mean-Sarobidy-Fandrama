@@ -4,15 +4,11 @@ var crypt = require("crypto");
 async function analyseToken(tokenValue){
     try {
         if(tokenValue === null){
-            let err = new Error("AUTH.ERROR.INVALID");
-            err.name = "error";
-            throw err;
+            throw {name:"error",status:403,message:"FORBIDDEN"};
         }
         let tok = await Token.findOne({token_value:tokenValue});
         if(tok.date_expiration.getTime() < new Date().getTime()){
-            let err = new Error("AUTH.ERROR.EXPIRED");
-            err.name = "error";
-            throw err;
+            throw {name:"error",status:401,message:"AUTH.ERROR.EXPIRED"};
         }
         return tok;
     } catch (error) {
@@ -56,7 +52,7 @@ async function createToken(utilisateur){
 
 function generateDateExpriration(){
     let date = new Date();
-    date.setMinutes(date.getMinutes() + 10);
+    date.setMinutes(date.getMinutes() + 40);
     return date;
 }
 async function generateTokenValue(utilisateur){

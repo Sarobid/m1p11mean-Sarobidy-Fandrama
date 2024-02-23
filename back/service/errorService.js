@@ -13,6 +13,7 @@ async function analyseError(erreur){
     }else{
         error = {erreur:erreursPropres,message:erreur.message};
     }
+    error['status'] = erreur.status ?? 400;
     console.log(error);
     return error;
 }

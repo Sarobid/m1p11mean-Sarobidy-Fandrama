@@ -18,9 +18,10 @@ exports.authentification = authentification;
 async function chekAutorisation(roles, req, res) {
     try {
         let autAuth = req.headers.authorization;
-        if (autAuth) {
+        if (autAuth != null && autAuth.split(' ')[1] != null) {
+            //console.log(autAuth);
             let tokenString = autAuth.split(' ')[1];
-            console.log(tokenString);
+            //console.log(tokenString);
             let tok = await tokenServ.analyseToken(tokenString);
             let utilisateur = await utilServ.findByIdSimpleRole(tok.utilisateur_id);
             let i = 0;
@@ -36,7 +37,7 @@ async function chekAutorisation(roles, req, res) {
             }
             return utilisateur;
         }else{
-            throw { status: 403, name: "error", message: "AUTH.ERROR.NOT_LOGGED_IN" };
+            throw { status: 403, name: "error", message: "FORBIDDEN" };
         }
 
     } catch (err) {

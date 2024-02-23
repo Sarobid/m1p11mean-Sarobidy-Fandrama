@@ -10,4 +10,13 @@ module.exports = function (app) {
             serv.analyseError(err).then(error=>{res.send(error)})
         });
     });
+    app.post("/authorize",(req,res)=>{
+        authServ.chekAutorisation(req.body.role,req,res)
+        .then(data => {
+            res.json(data);
+        }).catch(err => {
+            res.status(err.status || 400);
+            serv.analyseError(err).then(error=>{res.send(error)})
+        });
+    });
 }
