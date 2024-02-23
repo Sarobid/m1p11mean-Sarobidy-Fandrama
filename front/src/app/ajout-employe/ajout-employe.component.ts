@@ -2,11 +2,12 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ErrorService } from '../../service/service-ts/Error-service';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-ajout-employe',
   standalone: true,
-  imports: [NgFor,FormsModule,NgIf],
+  imports: [NgFor,FormsModule,NgIf,LoadingComponent],
   templateUrl: './ajout-employe.component.html',
   styleUrl: './ajout-employe.component.css'
 })
@@ -27,6 +28,7 @@ export class AjoutEmployeComponent implements OnInit{
   }
   erreurs: any = {};
   validation:boolean = false;
+  loading = false;
   constructor(private errorService: ErrorService){
     
   }
@@ -38,11 +40,13 @@ export class AjoutEmployeComponent implements OnInit{
   }
   
   deValidation(){
-    this.validation = false;
+    this.validation = true;
   }
   onSubmit(){
+    this.loading = true;
     utilisateurService.nouveauPersonnel(this.utilisateur,(data:any)=>{
       this.validation = true;
+      this.loading = false;
       this.utilisateur = {
         personne: {
           nom: '',
@@ -62,6 +66,7 @@ export class AjoutEmployeComponent implements OnInit{
       }else{
         this.erreurs = error.erreur;
       }
+      this.loading = false;
     });
   }
   effacerErreur(champ: string) {

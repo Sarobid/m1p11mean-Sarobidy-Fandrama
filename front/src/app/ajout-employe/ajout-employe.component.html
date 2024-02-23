@@ -8,6 +8,12 @@
                 <div class="card">
                     <div class="card-body">
                         <form (ngSubmit)="onSubmit()" class="row g-3" style="margin-top: 10px;">
+                            <!---S'il y a loading -->
+                            <div *ngIf="loading">
+                                <div style="text-align: center;">
+                                    <app-loading></app-loading>
+                                </div>
+                            </div>
                             <!---S'il y a validation -->
                             <div *ngIf="validation">
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
