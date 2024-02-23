@@ -5,49 +5,71 @@
             <div class="pt-2 pb-2">
                 <h5 class="card-title text-center pb-0 fs-4">Inscription</h5>
             </div>
-            <form (ngSubmit)="onSubmit()" class="row g-3">
-                <!--Email-->
-                <div class="col-12">
-                    <label for="yourEmail" class="form-label">Votre Email</label>
-                    <div class="input-group">
-                        <input type="email" name="email" class="form-control" [(value)]="utilisateur.email" id="email"
-                            disabled>
-                    </div>
+            <!---S'il y a loading -->
+            <div *ngIf="loading">
+                <div style="text-align: center;">
+                    <app-loading></app-loading>
                 </div>
-                <!--Mot de passe-->
+            </div>
+            <!--Si l'inscription est reussi-->
+            <div *ngIf="isInscrit">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="bi bi-check-circle me-1"></i>
+                    <strong>Inscription reussi</strong> Vous pouvez maintenant se connecter!
+                </div>
                 <div class="col-12">
-                    <label for="yourName" class="form-label">Mot de passe</label>
-                    <div class="input-group">
-                        <input type="password" name="mot-de-passe" [(ngModel)]="mdp.mdp" (input)="effacerErreur('mdp')"
-                            class="form-control" id="mot-de-passe">
-                        <div class="input-group-append" *ngIf="erreurs && erreurs['mdp']">
-                            <span class="input-group-text">
-                                <i class="bi bi-exclamation-triangle-fill text-danger"></i>
-                            </span>
+                    <a routerLink="/connexion"><button class="btn btn-primary w-100" type="button">Se
+                            connecter</button></a>
+                </div>
+            </div>
+            <div *ngIf="!isInscrit">
+                <form (ngSubmit)="onSubmit()" class="row g-3">
+
+                    <!--S'il n'a pas encore inscrit-->
+
+                    <!--Email-->
+                    <div class="col-12">
+                        <label for="yourEmail" class="form-label">Votre Email</label>
+                        <div class="input-group">
+                            <input type="email" name="email" class="form-control" [(value)]="utilisateur.email"
+                                id="email" disabled>
                         </div>
                     </div>
-                    <div *ngIf="erreurs && erreurs['mdp']" class="text-danger">{{erreurs['mdp']}}
-                    </div>
-                </div>
-                <!--Prenom-->
-                <div class="col-12">
-                    <label for="yourEmail" class="form-label">Confirmer</label>
-                    <div class="input-group">
-                        <input type="password" name="confirme" [(ngModel)]="mdp.mdpConf"
-                            (input)="effacerErreur('mdpConf')" class="form-control" id="confirme">
-                        <div class="input-group-append" *ngIf="erreurs && erreurs['mdpConf']">
-                            <span class="input-group-text">
-                                <i class="bi bi-exclamation-triangle-fill text-danger"></i>
-                            </span>
+                    <!--Mot de passe-->
+                    <div class="col-12">
+                        <label for="yourName" class="form-label">Mot de passe</label>
+                        <div class="input-group">
+                            <input type="password" name="mot-de-passe" [(ngModel)]="mdp.mdp"
+                                (input)="effacerErreur('mdp')" class="form-control" id="mot-de-passe">
+                            <div class="input-group-append" *ngIf="erreurs && erreurs['mdp']">
+                                <span class="input-group-text">
+                                    <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div *ngIf="erreurs && erreurs['mdp']" class="text-danger">{{erreurs['mdp']}}
                         </div>
                     </div>
-                    <div class="text-danger" *ngIf="erreurs && erreurs['mdpConf']">
-                        {{erreurs['mdpConf']}}</div>
-                </div>
-                <div class="col-12">
-                    <button class="btn btn-primary w-100" type="submit">Valider</button>
-                </div>
-            </form>
+                    <!--Prenom-->
+                    <div class="col-12">
+                        <label for="yourEmail" class="form-label">Confirmer</label>
+                        <div class="input-group">
+                            <input type="password" name="confirme" [(ngModel)]="mdp.mdpConf"
+                                (input)="effacerErreur('mdpConf')" class="form-control" id="confirme">
+                            <div class="input-group-append" *ngIf="erreurs && erreurs['mdpConf']">
+                                <span class="input-group-text">
+                                    <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="text-danger" *ngIf="erreurs && erreurs['mdpConf']">
+                            {{erreurs['mdpConf']}}</div>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary w-100" type="submit">Valider</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     <!--s'il y a invalidation-->

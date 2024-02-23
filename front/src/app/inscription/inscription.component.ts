@@ -1,10 +1,12 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LoadingComponent } from '../loading/loading.component';
 @Component({
   selector: 'app-inscription',
   standalone: true,
-  imports: [NgFor,FormsModule,NgIf],
+  imports: [NgFor,FormsModule,NgIf,LoadingComponent],
   templateUrl: './inscription.component.html',
   styleUrl: './inscription.component.css'
 })
@@ -24,8 +26,8 @@ export class InscriptionComponent implements OnInit {
   }
   erreurs: any = {};
   validation:boolean = false;
-
-  constructor() { }
+  loading = false;
+  constructor(private router : Router) { }
 
   ngOnInit(): void {
     utilisateurService.getListeSexes((data: any[]) => {
@@ -34,9 +36,12 @@ export class InscriptionComponent implements OnInit {
     });
   }
   onSubmit() {
+    this.loading = true;
     utilisateurService.nouveauClient(this.utilisateur,(data:any)=>{
       this.validation = true;
+      this.loading = false;
     },(err:any)=>{
+      this.loading = false;
       this.erreurs = err.erreur;
     })
   }
@@ -44,6 +49,5 @@ export class InscriptionComponent implements OnInit {
     if (this.erreurs && this.erreurs[champ]) {
       delete this.erreurs[champ];
     }
-  }
-  
+  }  
 }

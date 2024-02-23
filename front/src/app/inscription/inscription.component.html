@@ -6,6 +6,12 @@
         <h5 class="card-title text-center pb-0 fs-4">Inscription</h5>
       </div>
       <form (ngSubmit)="onSubmit()" class="row g-3">
+        <!---S'il y a loading -->
+        <div *ngIf="loading">
+          <div style="text-align: center;">
+            <app-loading></app-loading>
+          </div>
+        </div>
         <!--Email-->
         <div class="col-12">
           <label for="yourEmail" class="form-label">Email</label>
@@ -93,7 +99,7 @@
           </div>
           <div class="text-danger" *ngIf="erreurs && erreurs['tel']">{{erreurs['tel']}}</div>
         </div>
-        
+
         <div class="col-12">
           <button class="btn btn-primary w-100" type="submit">S'inscrire</button>
         </div>
