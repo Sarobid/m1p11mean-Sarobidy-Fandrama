@@ -28,7 +28,7 @@ export class AjoutEmployeComponent implements OnInit{
   erreurs: any = {};
   validation:boolean = false;
   constructor(private errorService: ErrorService){
-    this.verificationAuthorization();
+    
   }
   ngOnInit(): void {
     utilisateurService.getListeSexes((data: any[]) => {
@@ -36,11 +36,7 @@ export class AjoutEmployeComponent implements OnInit{
       console.log(this.sexes);
     });
   }
-  verificationAuthorization(){
-    authServ.isAuthorize(["MANAGER"],(data:any)=>{},(error:any)=>{
-      this.errorService.afficheError(error.message);
-    })
-  }
+  
   deValidation(){
     this.validation = false;
   }

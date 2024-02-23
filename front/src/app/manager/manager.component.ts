@@ -13,5 +13,12 @@ import { TitleAppComponent } from '../title-app/title-app.component';
   styleUrl: './manager.component.css'
 })
 export class ManagerComponent{
-  constructor(public errorService: ErrorService) {}
+  constructor(public errorService: ErrorService) {
+    this.verificationAuthorization();
+  }
+  verificationAuthorization(){
+    authServ.isAuthorize(["MANAGER"],(data:any)=>{},(error:any)=>{
+      this.errorService.afficheError(error.message);
+    })
+  }
 }
