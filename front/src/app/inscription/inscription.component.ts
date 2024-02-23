@@ -21,7 +21,6 @@ export class InscriptionComponent implements OnInit {
       tel: ''
     },
     email:''
-    ,url:'http://localhost:4200/inscription/'
   }
   erreurs: any = {};
   validation:boolean = false;

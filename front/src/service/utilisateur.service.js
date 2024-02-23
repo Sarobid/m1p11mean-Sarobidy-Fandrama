@@ -1,4 +1,25 @@
 var utilisateurService = {
+    nouveauPersonnel : (data,response,afficheError)=>{
+        data.url = baseUrl();
+        fetch(url() + "/utilisateur/employe", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${authServ.getToken()}`
+            },
+            body:JSON.stringify(data)
+        }).then(res => {
+            if(res.ok){
+                res.json().then(data => {
+                    response(data);
+                })
+            }else{
+                res.json().then(data => {
+                    afficheError(data);
+                })
+            }
+        })
+    },    
     login : (data,response,afficheError)=>{
         fetch(url() + "/auth", {
             method: 'POST',
@@ -70,6 +91,7 @@ var utilisateurService = {
         });
     },
     nouveauClient : (data,response,afficheError)=>{
+        data.url = baseUrl();
         fetch(url() + "/utilisateur/client", {
             method: 'POST',
             headers: {
@@ -89,4 +111,3 @@ var utilisateurService = {
         })
     }
 }
-module.exports = { utilisateurService }
