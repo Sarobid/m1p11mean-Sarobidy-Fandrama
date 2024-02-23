@@ -1,7 +1,7 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,10 +17,13 @@ export class LoginComponent {
   }
   erreurs: any = {};
 
-  constructor(){}
+  constructor(private router: Router){}
   onSubmit(){
     utilisateurService.login(this.utilisateur,(data:any)=>{
-      alert(JSON.stringify(data));
+      authServ.enregistrementToken(data.token);
+      if(data.utilisateur.role_id.role==="MANAGER"){
+        this.router.navigate(['/manager']);
+      }
     },(err:any)=>{
       this.erreurs = err.erreur;
     })
