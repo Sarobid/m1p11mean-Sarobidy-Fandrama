@@ -1,8 +1,11 @@
+<div *ngIf="errorService.isErreur">
+    <app-erreur [value]="errorService.erreur"/>
+</div>
+<div *ngIf="!errorService.isErreur">
 <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
-        <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">NiceAdmin</span>
+        <app-title-app></app-title-app>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div>
@@ -15,7 +18,7 @@
             </a>
             <ul id="personnel-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a>
+                    <a routerLink="nouveau-personnel">
                         <i class="bi bi-circle"></i><span>Nouveau</span>
                     </a>
                 </li>
@@ -31,3 +34,4 @@
 <!--ROUTER LINK -->
 <router-outlet></router-outlet>
 <!--FIN ROUTER LINK --><!--ROUTER LINK -->
+</div>
