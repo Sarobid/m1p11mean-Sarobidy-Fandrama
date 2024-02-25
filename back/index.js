@@ -1,4 +1,6 @@
 var server = require("./server");
+var websocket = require("./webSoket/webSocket")
+var http = require("http");
 const db = require("./db");
 var express = require("express");
 const cors = require("cors");
@@ -16,4 +18,8 @@ require("./controlleur/personne/personne.controlleur")(app);
 require("./controlleur/utilisateur/utilisateur.controlleur")(app);
 require("./controlleur/auth/auth.controlleur")(app);
 
-server.start(app);
+const ws = require('ws');
+const httpServ = http.createServer(app);
+const wss = new ws.Server({ server:httpServ,handshakeTimeout: 20000 });
+websocket.start(wss);
+server.start(httpServ);

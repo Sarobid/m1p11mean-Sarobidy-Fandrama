@@ -4,3 +4,6 @@ function url(){
 function baseUrl(){
     return "http://localhost:4200/";
 }
+function socketUrl(){
+    return "ws://localhost:8082";
+}

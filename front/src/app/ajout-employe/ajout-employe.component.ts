@@ -29,22 +29,26 @@ export class AjoutEmployeComponent implements OnInit{
   erreurs: any = {};
   validation:boolean = false;
   loading = false;
+  socketEmploye: any = null;
   constructor(private errorService: ErrorService){
-    
+    this.socketEmploye = utilSocket.listeEmploye();
   }
   ngOnInit(): void {
     utilisateurService.getListeSexes((data: any[]) => {
       this.sexes = data;
-      console.log(this.sexes);
     });
+    setInterval(()=>{
+      this.socketEmploye.connect(()=>{});
+    },socketService.delai);
   }
   
   deValidation(){
-    this.validation = true;
+    this.validation = false;
   }
   onSubmit(){
     this.loading = true;
     utilisateurService.nouveauPersonnel(this.utilisateur,(data:any)=>{
+      this.socketEmploye.signale("new");
       this.validation = true;
       this.loading = false;
       this.utilisateur = {

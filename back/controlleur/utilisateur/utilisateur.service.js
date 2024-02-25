@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt")
 var roleServ = require("./../role/role.service");
-var persServ = require("./../personne/personne.service")
+var persServ = require("./../personne/personne.service");
 const Utilisateur = require("./../../model/utilisateur");
 var servEmail = require("./../../service/email.service")
 
@@ -42,7 +42,7 @@ async function updateMotdePasse(utilisateur_id, mdp, mdpConf) {
         let utilisateurUp = await Utilisateur.findOne({ _id: utilisateur_id });
         utilisateurUp['mdp'] = await encodeMotDePasse(mdp);
         let data = await utilisateurUp.save();
-        return await findById(utilisateur_id);
+        return {value:true};
     } catch (error) {
         throw error;
     }
@@ -99,14 +99,7 @@ async function nouveauUtilisateur(roles, personne, email,http) {
                 + http + data._id + "'>cliquer ici</a> s'il vous plait</p>", (val) => {
                     is = val;
                 });
-            // if (is === false) {
-            //     let er = new Error("votre email est invalide");
-            //     er.name = "email";
-            //     await utilisateur.delete();
-            //     await pers.delete();
-            //     throw er;
-            // }
-            return data;
+            return {value:true};
         } else {
             let er = new Error("email existe déjà");
             er.name = "email";
@@ -136,7 +129,7 @@ exports.create = create;
 
 async function findByEmail(email) {
     try {
-        let utilisateur = await Utilisateur.findOne({ email: email });
+        let utilisateur = await Utilisateur.findOne({ email: email,delete:false });
         return utilisateur;
     } catch (error) {
         throw error;
@@ -144,16 +137,31 @@ async function findByEmail(email) {
 }
 exports.findByEmail = findByEmail;
 
+async function getAll(role){
+    try {
+        let data = await Utilisateur.find({ role_id: role._id,delete:false })
+            .populate({
+                path: 'personne_id',
+                populate: {
+                    path: 'sexe_id'
+                }
+            });
+            return data;
+    } catch (error) {
+        throw error;
+    }
+}
+exports.getAll = getAll;
+
 async function isUtilisateurValid(id) {
     try {
         let utilis = await findById(id);
-        let utilisateur = await Utilisateur.findOne({ _id: id });
+        let utilisateur = await Utilisateur.findOne({ _id: id,delete:false });
         if (utilisateur.mdp != null) {
             let err = new Error("Vous avez déjà été inscrit");
             err.name = "utilisateur";
             throw err;
         }
-        delete utilis.role_id;
         return utilis;
     } catch (error) {
         throw error;
@@ -163,11 +171,8 @@ exports.isUtilisateurValid = isUtilisateurValid;
 
 async function findByIdSimpleRole(id){
     try {
-        let utilisateur = await Utilisateur.findOne({ _id: id })
+        let utilisateur = await Utilisateur.findOne({ _id: id,delete:false })
                 .populate("role_id");
-        utilisateur = utilisateur.toJSON();
-        delete utilisateur.mdp;
-        utilisateur.delete;
         return utilisateur;
     } catch (error) {
         throw error;
@@ -175,12 +180,29 @@ async function findByIdSimpleRole(id){
 }
 exports.findByIdSimpleRole = findByIdSimpleRole;
 
+async function deleteUtilisateur(id){
+    try {
+        let util = await findById(id);
+        util.delete = true;
+        await util.save();
+        return {value:true};
+    } catch (error) {
+        throw error;
+    }
+}
+exports.deleteUtilisateur = deleteUtilisateur;
+
 async function findById(id) {
     try {
         let utilisateur = null;
         try {
-            utilisateur = await Utilisateur.findOne({ _id: id })
-                .populate("role_id");
+            utilisateur = await Utilisateur.findOne({ _id: id,delete:false })
+                .populate("role_id").populate({
+                    path: 'personne_id',
+                    populate: {
+                        path: 'sexe_id'
+                    }
+                });
         } catch (error) {
             console.log(error)
             let err = new Error("utilisateur n'existe pas");
@@ -192,12 +214,12 @@ async function findById(id) {
             err.name = "utilisateur";
             throw err;
         }
-        let pers = await persServ.findById(utilisateur.personne_id);
-        utilisateur = utilisateur.toJSON();
-        utilisateur.personne_id = pers;
-        //delete utilisateur.role_id;
-        delete utilisateur.mdp;
-        utilisateur.delete;
+        // let pers = await persServ.findById(utilisateur.personne_id);
+        // utilisateur = utilisateur.toJSON();
+        // utilisateur.personne_id = pers;
+        // //delete utilisateur.role_id;
+        // delete utilisateur.mdp;
+        // utilisateur.delete;
         return utilisateur;
     } catch (error) {
         throw error;

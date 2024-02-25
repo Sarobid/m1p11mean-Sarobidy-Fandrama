@@ -1,0 +1,75 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Liste des Personnels</h1>
+    </div>
+    <section class="section">
+        <div class="row">
+            <div class="col-xl">
+                <div class="card">
+                    <div class="card-body">
+                        <!---S'il y a loading -->
+                        <div *ngIf="loading">
+                            <div style="text-align: center;">
+                                <app-loading></app-loading>
+                            </div>
+                        </div>
+                        <!--Form recherche-->
+                        <form class="row g-3" style="margin-top: 10px;">
+                            <div class="col-sm-3">
+                                <div class="form-floating">
+                                    <input type="text" [(ngModel)]="search.nom" name="nom" (input)="recherche()" class="form-control" id="nom"
+                                        placeholder="Nom">
+                                    <label for="nom">Nom</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                    <input type="text" [(ngModel)]="search.prenom" name="prenom" (input)="recherche()" class="form-control" id="prenom"
+                                        placeholder="Prenom">
+                                    <label for="floatingEmail">Prenom</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating mb-3">
+                                  <select class="form-select" [(ngModel)]="search.sexe" name="sexe" (change)="recherche()" id="sexe" aria-label="Sexe">
+                                    <option value=""></option>
+                                    <option *ngFor="let sexe of sexes" [value]="sexe._id">{{sexe.nom}}</option>
+                                  </select>
+                                  <label for="floatingSelect">Sexe</label>
+                                </div>
+                              </div>
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                    <input type="text" [(ngModel)]="search.tel" name="tel" (input)="recherche()" class="form-control" id="tel"
+                                        placeholder="Télephone">
+                                    <label for="floatingEmail">Télephone</label>
+                                </div>
+                            </div>
+                        </form>
+                        <!---Table-->
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">nom</th>
+                                    <th scope="col">prenom</th>
+                                    <th scope="col">sexe</th>
+                                    <th scope="col">telephone</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="listeEmploye">
+                                    <tr *ngFor="let employe of listeEmployeFiltrer">
+                                        <td>{{employe.personne_id.nom}}</td>
+                                        <td>{{employe.personne_id.prenom}}</td>
+                                        <td>{{employe.personne_id.sexe_id.nom}}</td>
+                                        <td>{{employe.personne_id.tel}}</td>
+                                        <td><button type="button"(click)="deleteEmploye(employe._id)" class="btn btn-outline-danger btn-sm">Supprimer</button></td>
+                                    </tr>             
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

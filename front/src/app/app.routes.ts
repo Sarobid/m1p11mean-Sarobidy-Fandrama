@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { AjoutEmployeComponent } from './ajout-employe/ajout-employe.component';
 import { HeadPageLibreComponent } from "./head-page-libre/head-page-libre.component";
 import { InscriptionComponent } from "./inscription/inscription.component";
+import { ListeEmployeComponent } from './liste-employe/liste-employe.component';
 import { LoginComponent } from './login/login.component';
 import { ManagerComponent } from "./manager/manager.component";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
@@ -10,7 +11,8 @@ import { ValidMotDePasseComponent } from "./valid-mot-de-passe/valid-mot-de-pass
 export const routes: Routes = [
     { path: 'manager', component: ManagerComponent ,
     children:[
-        { path: 'nouveau-personnel', component: AjoutEmployeComponent }
+        { path: 'nouveau-personnel', component: AjoutEmployeComponent },
+        { path: 'liste-personnel',component:ListeEmployeComponent}
     ]},
     {
         path: '', component: HeadPageLibreComponent,

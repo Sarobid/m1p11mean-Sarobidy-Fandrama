@@ -7,6 +7,9 @@ async function analyseToken(tokenValue){
             throw {name:"error",status:403,message:"FORBIDDEN"};
         }
         let tok = await Token.findOne({token_value:tokenValue});
+        if(tok === null){
+            throw {name:"error",status:403,message:"FORBIDDEN"};
+        }
         if(tok.date_expiration.getTime() < new Date().getTime()){
             throw {name:"error",status:401,message:"AUTH.ERROR.EXPIRED"};
         }

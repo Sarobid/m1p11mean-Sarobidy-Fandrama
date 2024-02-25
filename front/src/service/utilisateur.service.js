@@ -1,4 +1,43 @@
 var utilisateurService = {
+
+    deleteEmploye : (id,response,afficheError)=>{
+        fetch(url() + "/utilisateur/employe/delete/"+id, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${authServ.getToken()}`
+            }
+        }).then(res => {
+            if(res.ok){
+                res.json().then(data => {
+                    response(data);
+                })
+            }else{
+                res.json().then(data => {
+                    afficheError(data);
+                })
+            }
+        })
+    },
+    listeEmploye : (data,response,afficheError)=>{
+        fetch(url() + "/utilisateur/employes", {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${authServ.getToken()}`
+            }
+        }).then(res => {
+            if(res.ok){
+                res.json().then(data => {
+                    response(data);
+                })
+            }else{
+                res.json().then(data => {
+                    afficheError(data);
+                })
+            }
+        })
+    },
     nouveauPersonnel : (data,response,afficheError)=>{
         data.url = baseUrl();
         fetch(url() + "/utilisateur/employe", {

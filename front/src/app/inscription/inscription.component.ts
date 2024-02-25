@@ -32,7 +32,6 @@ export class InscriptionComponent implements OnInit {
   ngOnInit(): void {
     utilisateurService.getListeSexes((data: any[]) => {
       this.sexes = data;
-      console.log(this.sexes);
     });
   }
   onSubmit() {
