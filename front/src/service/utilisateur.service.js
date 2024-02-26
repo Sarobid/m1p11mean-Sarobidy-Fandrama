@@ -33,4 +33,3 @@ var utilisateurService = {
         })
     }
 }
-module.exports = { utilisateurService }
