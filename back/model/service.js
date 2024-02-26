@@ -7,19 +7,19 @@ const servicesSchema = new Schema({
     },
     nom:{
         type : String,
-        required : true
+        required : [true,"Le nom est requis"]
     },
     prix:{
         type : Number,
-        required : true
+        required : [true,"Le prix est requis"]
     },
     duree:{
         type : Number, /// Millisecondes
-        required : true
+        required : [true,"La durée est requise"]
     },
     commission:{
         type : Number ,
-        required : true
+        required : [true,"La comission est requis"]
     },
     delete:{
         type : Boolean,
