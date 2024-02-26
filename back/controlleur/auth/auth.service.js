@@ -24,6 +24,9 @@ async function chekAutorisation(roles, req, res) {
             //console.log(tokenString);
             let tok = await tokenServ.analyseToken(tokenString);
             let utilisateur = await utilServ.findByIdSimpleRole(tok.utilisateur_id);
+            if(utilisateur === null){
+                throw { status: 403, name: "error", message: "FORBIDDEN" };
+            }
             let i = 0;
             let isAuth = false;
             for (i = 0; i < roles.length; i++) {

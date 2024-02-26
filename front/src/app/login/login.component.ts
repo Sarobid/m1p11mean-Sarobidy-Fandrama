@@ -24,6 +24,7 @@ export class LoginComponent {
     this.loading = true;
     utilisateurService.login(this.utilisateur,(data:any)=>{
       this.loading = false;
+      authServ.enregistrementUtilisateur(data.utilisateur);
       authServ.enregistrementToken(data.token);
       if(data.utilisateur.role_id.role==="MANAGER"){
         this.router.navigate(['/manager']);

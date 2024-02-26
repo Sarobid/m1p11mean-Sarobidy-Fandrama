@@ -4,11 +4,12 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { ErrorService } from '../../service/service-ts/Error-service';
 import { ErreurComponent } from '../erreur/erreur.component';
 import { TitleAppComponent } from '../title-app/title-app.component';
+import { HeaderUtilisateurComponent } from '../header-utilisateur/header-utilisateur.component';
 
 @Component({
   selector: 'app-employe',
   standalone: true,
-  imports: [RouterOutlet,RouterLink,NgIf,ErreurComponent,TitleAppComponent],
+  imports: [RouterOutlet,RouterLink,NgIf,ErreurComponent,HeaderUtilisateurComponent],
   templateUrl: './employe.component.html',
   styleUrl: './employe.component.css'
 })

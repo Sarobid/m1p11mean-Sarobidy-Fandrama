@@ -200,7 +200,7 @@ async function findById(id) {
         let utilisateur = null;
         try {
             utilisateur = await Utilisateur.findOne({ _id: id,delete:false })
-                .populate("role_id").exec();
+                .populate("role_id").populate("personne_id").exec();
         } catch (error) {
             console.log(error)
             let err = new Error("utilisateur n'existe pas");

@@ -27,10 +27,11 @@ export const routes: Routes = [
     {
         path: '', component: HeadPageLibreComponent,
         children: [
+
             { path: 'inscription', title: "Inscription", component: InscriptionComponent },
             { path: 'inscription/:id', title: "Inscription", component: ValidMotDePasseComponent },
             { path: 'connexion', title: "Connexion", component: LoginComponent },
         ]
     },
-    { path: '**', component: PageNotFoundComponent }
+    { path: '**', component: PageNotFoundComponent },
 ];
