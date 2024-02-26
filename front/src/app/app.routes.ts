@@ -11,6 +11,7 @@ import { ManagerComponent } from "./manager/manager.component";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { StatistiqueHoraireComponent } from './statistique-horaire/statistique-horaire.component';
 import { ValidMotDePasseComponent } from "./valid-mot-de-passe/valid-mot-de-passe.component";
+import { ServiceComponent } from './service/service.component';
 
 export const routes: Routes = [
     { path: 'personnel', component: EmployeComponent ,
@@ -35,3 +36,6 @@ export const routes: Routes = [
     },
     { path: '**', component: PageNotFoundComponent },
 ];
+    {path : 'inscription' , component : InscriptionComponent},
+    {path : 'service' , component : ServiceComponent},
+    ];

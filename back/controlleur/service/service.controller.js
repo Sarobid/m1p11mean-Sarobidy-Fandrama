@@ -1,12 +1,15 @@
-var serviceServ = require("./sexe.service");
+var serviceServ = require("./service.service");
+var serv = require("./../../service/errorService");
+
+
 module.exports = function (app) {
     app.post("/service/insert",(req,res)=>{
-        serviceServ.insertion(req.body.nom,req.body.prix,req.body.duree,req.body.comission)
+        serviceServ.insertion(req.body.nom,req.body.prix,req.body.duree,req.body.commission)
         .then(data => {
             res.json(data);
         }).catch(err => {
             res.status(err.status || 400);
-            res.send({error: {message: err.message},});
+            serv.analyseError(err).then(error=>{res.send(error)})
         });
     });
     app.get("/service/getAll",(req,res)=>{
@@ -15,7 +18,7 @@ module.exports = function (app) {
             res.json(data);
         }).catch(err => {
             res.status(err.status || 400);
-            res.send({error: {message: err.message},});
+            serv.analyseError(err).then(error=>{res.send(error)})
         });
     });
     app.post("/service/delete",(req,res)=>{
@@ -24,7 +27,41 @@ module.exports = function (app) {
             res.json(data);
         }).catch(err => {
             res.status(err.status || 400);
-            res.send({error: {message: err.message},});
+            serv.analyseError(err).then(error=>{res.send(error)})
+        });
+    });
+    app.post("/service/active",(req,res)=>{
+        serviceServ.activeService(req.body.id)
+        .then(data => {
+            res.json(data);
+        }).catch(err => {
+            res.status(err.status || 400);
+            serv.analyseError(err).then(error=>{res.send(error)})
+        });
+    });
+    app.post("/service/update",(req,res)=>{
+        data={
+            nom : req.body.nom,
+            prix : req.body.prix,
+            duree : req.body.duree,
+            commission : req.body.commission,
+            delete : req.body.delete
+        }
+        serviceServ.updateService(req.body.id,data)
+        .then(data => {
+            res.json(data);
+        }).catch(err => {
+            res.status(err.status || 400);
+            serv.analyseError(err).then(error=>{res.send(error)})
+        });
+    });
+    app.post("/service/findOne",(req,res)=>{
+        serviceServ.findServiceById(req.body.id)
+        .then(data => {
+            res.json(data);
+        }).catch(err => {
+            res.status(err.status || 400);
+            serv.analyseError(err).then(error=>{res.send(error)})
         });
     });
 }
