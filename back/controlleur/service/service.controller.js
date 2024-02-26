@@ -64,23 +64,4 @@ module.exports = function (app) {
             serv.analyseError(err).then(error=>{res.send(error)})
         });
     });
-    // app.post("/service/searchMulti",(req,res)=>{
-    //     data={
-    //         nom : req.body.nom,
-    //         minPrix : req.body.minPrix,
-    //         maxPrix : req.body.maxPrix,
-    //         minDuree : req.body.minDuree,
-    //         maxDuree : req.body.maxDuree,
-    //         minCommission : req.body.minCommission,
-    //         maxCommission : req.body.maxCommission,
-    //         delete : req.body.delete
-    //     }
-    //     serviceServ.multiCriteriaSearch(req.body.id,data)
-    //     .then(data => {
-    //         res.json(data);
-    //     }).catch(err => {
-    //         res.status(err.status || 400);
-    //         serv.analyseError(err).then(error=>{res.send(error)})
-    //     });
-    // })
 }
