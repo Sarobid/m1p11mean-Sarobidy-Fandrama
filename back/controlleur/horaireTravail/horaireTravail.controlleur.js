@@ -54,7 +54,7 @@ module.exports = function (app) {
     app.post("/horaire/update/:id", (req, res) => {
         authServ.chekAutorisation(roles, req, res)
             .then(util => {
-                horaireServ.update(req.body.heure_debut, req.body.heure_fin, req.body.date, req.params.id)
+                horaireServ.update(req.body.heure_debut, req.body.heure_fin, req.body.date,req.body.date_fin, req.params.id)
                     .then(data => {
                         res.json(data);
                     }).catch(err => {

@@ -18,7 +18,6 @@ require("./controlleur/personne/personne.controlleur")(app);
 require("./controlleur/utilisateur/utilisateur.controlleur")(app);
 require("./controlleur/auth/auth.controlleur")(app);
 require("./controlleur/horaireTravail/horaireTravail.controlleur")(app);
-
 const ws = require('ws');
 const httpServ = http.createServer(app);
 const wss = new ws.Server({ server:httpServ,handshakeTimeout: 20000 });
