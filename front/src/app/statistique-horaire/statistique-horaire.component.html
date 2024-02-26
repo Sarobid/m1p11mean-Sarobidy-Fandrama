@@ -1,0 +1,79 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Temps moyen de travail pour chaque employé</h1>
+    </div>
+    <section class="section">
+        <div class="row">
+            <div class="col-xl">
+                <div class="card">
+                    <div class="card-body">
+                        <!---S'il y a loading -->
+                        <div *ngIf="loading">
+                            <div style="text-align: center;">
+                                <app-loading></app-loading>
+                            </div>
+                        </div>
+                        <!--Form recherche-->
+                        <form class="row g-3" style="margin-top: 10px;">
+                            <div class="col-md-2">
+                                <div class="form-floating">
+                                    <input type="time" [(ngModel)]="searh.temps_min" name="temps_min"
+                                        (input)="recherche()" class="form-control" id="temps_min"
+                                        placeholder="temps_min">
+                                    <label for="floatingEmail">Temps Minimum</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-floating">
+                                    <input type="time" [(ngModel)]="searh.temps_max" name="temps_max"
+                                        (input)="recherche()" class="form-control" id="temps_max"
+                                        placeholder="temps_max">
+                                    <label for="floatingEmail">Temps Maximum</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                    <input type="text" [(ngModel)]="searh.nom" name="nom"
+                                        (input)="recherche()" class="form-control" id="nom"
+                                        placeholder="nom">
+                                    <label for="floatingEmail">Nom</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                    <input type="text" [(ngModel)]="searh.email" name="email"
+                                        (input)="recherche()" class="form-control" id="email"
+                                        placeholder="email">
+                                    <label for="floatingEmail">Email</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-outline-success btn-sm" (click)="voirTout()">Voir
+                                    tout</button>
+                            </div>
+                        </form>
+                        <!---Table-->
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Temps Moyen</th>
+                                    <th scope="col">nom</th>
+                                    <th scope="col">prenom</th>
+                                    <th scope="col">email</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="stateHoraireFiltrer">
+                                <tr *ngFor="let state of stateHoraireFiltrer">
+                                    <th>{{ state.dureeFormat }}</th>
+                                    <td>{{ state.utilisateur.personne.nom }}</td>
+                                    <td>{{ state.utilisateur.personne.prenom }}</td>
+                                    <td>{{ state.utilisateur.email }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

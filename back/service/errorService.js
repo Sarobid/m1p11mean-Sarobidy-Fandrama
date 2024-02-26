@@ -9,10 +9,11 @@ async function analyseError(erreur){
     if(i == 0){ /// si c'est un erreur de l'Objet Error
         let er = {};
         er[erreur.name] = erreur.message;
-        error =  {erreur:er};
+        error =  {erreur:er,message:erreur.message};
     }else{
-        error = {erreur:erreursPropres};
+        error = {erreur:erreursPropres,message:erreur.message};
     }
+    error['status'] = erreur.status ?? 400;
     console.log(error);
     return error;
 }

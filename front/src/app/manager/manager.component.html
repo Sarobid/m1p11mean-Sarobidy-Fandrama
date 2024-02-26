@@ -1,0 +1,54 @@
+<div *ngIf="errorService.isErreur">
+    <app-erreur [value]="errorService.erreur" />
+</div>
+<div *ngIf="!errorService.isErreur">
+    <header id="header" class="header fixed-top d-flex align-items-center">
+        <div class="d-flex align-items-center justify-content-between">
+            <a href="index.html" class="logo d-flex align-items-center">
+                <app-title-app></app-title-app>
+            </a>
+            <i class="bi bi-list toggle-sidebar-btn"></i>
+        </div>
+    </header>
+    <aside id="sidebar" class="sidebar">
+        <ul class="sidebar-nav" id="sidebar-nav">
+            <!---Statistique-->
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-bar-chart"></i><span>Statistique</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <!--temps-moyen-travail-->
+                    <li>
+                        <a routerLink="temps-moyen-travail">
+                            <i class="bi bi-circle"></i><span>Temps de travail</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!--Gestion Personnel-->
+            <li class="nav-item">
+                <a class="nav-link " data-bs-target="#personnel-nav" data-bs-toggle="collapse">
+                    <i class="bi bi-menu-button-wide"></i><span>Gestion Personnel</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="personnel-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a routerLink="nouveau-personnel">
+                            <i class="bi bi-circle"></i><span>Nouveau</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="liste-personnel">
+                            <i class="bi bi-circle"></i><span>Liste</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </aside>
+    <!--ROUTER LINK -->
+    <router-outlet></router-outlet>
+    <!--FIN ROUTER LINK --><!--ROUTER LINK -->
+</div>

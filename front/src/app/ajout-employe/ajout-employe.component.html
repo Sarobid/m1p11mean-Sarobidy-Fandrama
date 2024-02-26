@@ -1,0 +1,140 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Nouveau Personnel</h1>
+    </div>
+    <section class="section">
+        <div class="row">
+            <div class="col-xl">
+                <div class="card">
+                    <div class="card-body">
+                        <form (ngSubmit)="onSubmit()" class="row g-3" style="margin-top: 10px;">
+                            <!---S'il y a loading -->
+                            <div *ngIf="loading">
+                                <div style="text-align: center;">
+                                    <app-loading></app-loading>
+                                </div>
+                            </div>
+                            <!---S'il y a validation -->
+                            <div *ngIf="validation">
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <i class="bi bi-check-circle me-1"></i>
+                                    <strong>Bienvenue</strong> dans notre equipe <strong>&&</strong> Pour terminer
+                                    veuillez consulter <strong>votre email</strong> !
+                                    <button type="button" class="btn-close" (click)="deValidation()"></button>
+                                </div>
+                            </div>
+                            <!--Email-->
+                            <div class="col-md-6">
+                                <label for="yourEmail" class="form-label">Email</label>
+                                <div class="input-group">
+                                    <input type="email" name="email" [(ngModel)]="utilisateur.email"
+                                        (input)="effacerErreur('email')" class="form-control" id="email">
+                                    <div class="input-group-append" *ngIf="erreurs && erreurs['email']">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="text-danger" *ngIf="erreurs && erreurs['email']">{{erreurs['email']}}
+                                </div>
+                            </div>
+                            <!--Nom-->
+                            <div class="col-md-6">
+                                <label for="yourName" class="form-label">Nom</label>
+                                <div class="input-group">
+                                    <input type="text" name="nom" [(ngModel)]="utilisateur.personne.nom"
+                                        (input)="effacerErreur('nom')" class="form-control" id="nom">
+                                    <div class="input-group-append" *ngIf="erreurs && erreurs['nom']">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div *ngIf="erreurs && erreurs['nom']" class="text-danger">{{erreurs['nom']}}</div>
+                            </div>
+                            <!--Prenom-->
+                            <div class="col-md-6">
+                                <label for="yourEmail" class="form-label">Prenom</label>
+                                <div class="input-group">
+                                    <input type="text" name="prenom" [(ngModel)]="utilisateur.personne.prenom"
+                                        (input)="effacerErreur('prenom')" class="form-control" id="prenom">
+                                    <div class="input-group-append" *ngIf="erreurs && erreurs['prenom']">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="text-danger" *ngIf="erreurs && erreurs['prenom']">{{erreurs['prenom']}}
+                                </div>
+                            </div>
+                            <!--Date de naissance-->
+                            <div class="col-md-3">
+                                <label for="yourEmail" class="form-label">Date de naissance</label>
+                                <div class="input-group">
+                                    <input type="date" name="date" [(ngModel)]="utilisateur.personne.dateNaissance"
+                                        (input)="effacerErreur('dateNaissance')" class="form-control" id="date">
+                                    <div class="input-group-append" *ngIf="erreurs && erreurs['dateNaissance']">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="text-danger" *ngIf="erreurs && erreurs['dateNaissance']">
+                                    {{erreurs['dateNaissance']}}</div>
+                            </div>
+                            <!--SEXE-->
+                            <div class="col-md-3">
+                                <label for="yourEmail" class="form-label">sexe</label>
+                                <div class="input-group">
+                                    <select class="form-select" name="sexe"
+                                        [(ngModel)]="utilisateur.personne.sexe_id._id"
+                                        (input)="effacerErreur('sexe_id')" placeholder="Choisissez" id="sexe">
+                                        <option *ngFor="let sexe of sexes" [value]="sexe._id">{{sexe.nom}}</option>
+                                    </select>
+                                    <div class="input-group-append" *ngIf="erreurs && erreurs['sexe_id']">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="text-danger" *ngIf="erreurs && erreurs['sexe_id']">
+                                    {{erreurs['sexe_id']}}</div>
+                            </div>
+                            <!--CIN-->
+                            <div class="col-md-6">
+                                <label for="yourEmail" class="form-label">Numero CIN</label>
+                                <div class="input-group">
+                                    <input type="text" name="cin" [(ngModel)]="utilisateur.personne.cin"
+                                        (input)="effacerErreur('cin')" class="form-control" id="cin">
+                                    <div class="input-group-append" *ngIf="erreurs && erreurs['cin']">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="text-danger" *ngIf="erreurs && erreurs['cin']">{{erreurs['cin']}}</div>
+                            </div>
+                            <!--Numero telephone-->
+                            <div class="col-md-4">
+                                <label for="yourEmail" class="form-label">Téléphone</label>
+                                <div class="input-group">
+                                    <input type="text" name="tel" [(ngModel)]="utilisateur.personne.tel"
+                                        (input)="effacerErreur('tel')" class="form-control" id="tel">
+                                    <div class="input-group-append" *ngIf="erreurs && erreurs['tel']">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="text-danger" *ngIf="erreurs && erreurs['tel']">{{erreurs['tel']}}</div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary w-100" type="submit">Ajouter</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

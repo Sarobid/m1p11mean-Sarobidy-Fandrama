@@ -19,7 +19,7 @@ const servicesSchema = new Schema({
     },
     commission:{
         type : Number ,
-        required : [true,"La comission est requis"]
+        required : [true,"La commission est requis"]
     },
     delete:{
         type : Boolean,

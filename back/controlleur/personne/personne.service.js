@@ -1,9 +1,17 @@
 const Personne = require('./../../model/personne');
 var sexeServ = require('./../sexe/sexe.service');
 
+function controlleCIN(cin){
+    if(cin === ''){
+        throw {name:"cin",message:"Le numero Cin est requise"};
+    }
+}
 async function insertion(value){
     var pers = new Personne(value);
     try {
+        if(value.cin != null){
+            controlleCIN(value.cin);
+        }
         if(value.sexe_id != null){
             let sexe = await sexeServ.findById(value.sexe_id._id)
             pers.sexe_id = sexe;

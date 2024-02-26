@@ -1,0 +1,51 @@
+<div class="card mb-3">
+    <div class="card-body">
+
+        <div class="pt-3 pb-2">
+            <h5 class="card-title text-center pb-0 fs-4">Connexion</h5>
+        </div>
+        <form (ngSubmit)="onSubmit()" class="row g-3">
+            <!---S'il y a loading -->
+            <div *ngIf="loading">
+                <div style="text-align: center;">
+                    <app-loading></app-loading>
+                </div>
+            </div>
+            <!--Email-->
+            <div class="col-12">
+                <label for="yourEmail" class="form-label">Email</label>
+                <div class="input-group">
+                    <input type="email" name="email" [(ngModel)]="utilisateur.email" (input)="effacerErreur('email')"
+                        class="form-control" id="email">
+                    <div class="input-group-append" *ngIf="erreurs && erreurs['email']">
+                        <span class="input-group-text">
+                            <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="text-danger" *ngIf="erreurs && erreurs['email']">{{erreurs['email']}}</div>
+            </div>
+            <!--Mot de passe-->
+            <div class="col-12">
+                <label for="yourName" class="form-label">Mot de passe</label>
+                <div class="input-group">
+                    <input type="password" name="mot-de-passe" [(ngModel)]="utilisateur.mdp"
+                        (input)="effacerErreur('mdp')" class="form-control" id="mot-de-passe">
+                    <div class="input-group-append" *ngIf="erreurs && erreurs['mdp']">
+                        <span class="input-group-text">
+                            <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                        </span>
+                    </div>
+                </div>
+                <div *ngIf="erreurs && erreurs['mdp']" class="text-danger">{{erreurs['mdp']}}
+                </div>
+            </div>
+            <div class="col-12">
+                <button class="btn btn-primary w-100" type="submit">Se connecter</button>
+            </div>
+            <div class="col-12">
+                <p class="small mb-0">Vous n'ete pas inscrit? <a routerLink="/inscription">S'inscrire</a></p>
+            </div>
+        </form>
+    </div>
+</div>

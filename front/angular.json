@@ -48,6 +48,12 @@
               "src/service/utilisateur.service.js",
               "src/service/service.service.js",
               "src/common.js"
+              "src/service/horaire.service.js",
+              "src/service/socket/utilisateur.socket.js",
+              "src/service/socket/socket.js",
+              "src/service/auth.service.js",
+              "src/common.js",
+              "src/service/service.js"
             ],
             "server": "src/main.server.ts",
             "prerender": true,
