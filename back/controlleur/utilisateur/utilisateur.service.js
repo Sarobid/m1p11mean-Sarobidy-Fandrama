@@ -146,6 +146,9 @@ async function getAll(role){
                     path: 'sexe_id'
                 }
             });
+            data.forEach(utilisateur => {
+                utilisateur.mdp = null;
+            });
             return data;
     } catch (error) {
         throw error;
@@ -197,12 +200,7 @@ async function findById(id) {
         let utilisateur = null;
         try {
             utilisateur = await Utilisateur.findOne({ _id: id,delete:false })
-                .populate("role_id").populate({
-                    path: 'personne_id',
-                    populate: {
-                        path: 'sexe_id'
-                    }
-                });
+                .populate("role_id").exec();
         } catch (error) {
             console.log(error)
             let err = new Error("utilisateur n'existe pas");
@@ -214,12 +212,7 @@ async function findById(id) {
             err.name = "utilisateur";
             throw err;
         }
-        // let pers = await persServ.findById(utilisateur.personne_id);
-        // utilisateur = utilisateur.toJSON();
-        // utilisateur.personne_id = pers;
-        // //delete utilisateur.role_id;
-        // delete utilisateur.mdp;
-        // utilisateur.delete;
+        utilisateur.mdp = null;
         return utilisateur;
     } catch (error) {
         throw error;
