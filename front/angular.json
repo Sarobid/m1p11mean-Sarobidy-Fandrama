@@ -46,6 +46,7 @@
               "src/assets/vendor/php-email-form/validate.js",
               "src/assets/js/main.js",
               "src/service/utilisateur.service.js",
+              "src/service/service.service.js",
               "src/common.js"
             ],
             "server": "src/main.server.ts",
@@ -116,5 +117,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
