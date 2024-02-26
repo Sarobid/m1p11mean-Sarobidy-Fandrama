@@ -1,4 +1,5 @@
 const Serv = require('./../../model/service');
+var Contr = require('./../../service/service')
 
 async function getAll(){
     try {
@@ -10,11 +11,13 @@ async function getAll(){
 }
 exports.getAll = getAll;
 
-async function insertion(nom,prix,duree,commission){
-
-    var serv = new Serv({nom,prix,duree,commission});
+async function insertion(nom,prix,durees,commission){
     try {
-        
+        if(durees == null || durees == undefined){
+            throw new Error('duree nécessaire')
+        }
+        let duree = Contr.heureInMillisecconde(durees);
+        var serv = new Serv({nom,prix,duree,commission});
         var data = await serv.save();
         return data;
     } catch (error) {
