@@ -46,10 +46,12 @@
               "src/assets/vendor/php-email-form/validate.js",
               "src/assets/js/main.js",
               "src/service/utilisateur.service.js",
+              "src/service/horaire.service.js",
               "src/service/socket/utilisateur.socket.js",
               "src/service/socket/socket.js",
               "src/service/auth.service.js",
-              "src/common.js"
+              "src/common.js",
+              "src/service/service.js"
             ],
             "server": "src/main.server.ts",
             "prerender": true,

@@ -27,6 +27,8 @@ export class LoginComponent {
       authServ.enregistrementToken(data.token);
       if(data.utilisateur.role_id.role==="MANAGER"){
         this.router.navigate(['/manager']);
+      }else if(data.utilisateur.role_id.role==="EMPLOYE"){
+        this.router.navigate(['/personnel']);
       }
     },(err:any)=>{
       this.loading = false;

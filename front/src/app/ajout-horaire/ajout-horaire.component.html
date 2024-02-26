@@ -1,0 +1,80 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Nouveau Horaire de Travail</h1>
+    </div>
+    <section class="section">
+        <div class="row">
+            <div class="col-lg">
+                <div class="card">
+                    <div class="card-body">
+                        <form (ngSubmit)="onSubmit()" class="row g-3" style="margin-top: 10px;">
+                            <!---S'il y a loading -->
+                            <div *ngIf="loading">
+                                <div style="text-align: center;">
+                                    <app-loading></app-loading>
+                                </div>
+                            </div>
+                            <!---S'il y a validation -->
+                            <div *ngIf="validation">
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <i class="bi bi-check-circle me-1"></i>
+                                    <strong>Horaire ajouter avec succes !</strong>
+                                    <button type="button" class="btn-close" (click)="deValidation()"></button>
+                                </div>
+                            </div>
+                            <!--Date-->
+                            <div class="col-md-6">
+                                <label for="yourEmail" class="form-label">Date</label>
+                                <div class="input-group">
+                                    <input type="date" name="date" [(ngModel)]="horaire.date"
+                                        (input)="effacerErreur('date')" class="form-control" id="date">
+                                    <div class="input-group-append" *ngIf="erreurs && erreurs['date']">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="text-danger" *ngIf="erreurs && erreurs['date']">{{erreurs['date']}}
+                                </div>
+                            </div>
+                            <!--heure debut-->
+                            <div class="col-md-6">
+                                <label for="yourEmail" class="form-label">Heure debut</label>
+                                <div class="input-group">
+                                    <input type="time" name="heure_debut" [(ngModel)]="horaire.heure_debut"
+                                        (input)="effacerErreur('heure_debut')" class="form-control" id="heure_debut">
+                                    <div class="input-group-append" *ngIf="erreurs && erreurs['heure_debut']">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="text-danger" *ngIf="erreurs && erreurs['heure_debut']">{{erreurs['heure_debut']}}
+                                </div>
+                            </div>
+                            <!--heure fin-->
+                            <div class="col-md-6">
+                                <label for="yourEmail" class="form-label">Heure Fin</label>
+                                <div class="input-group">
+                                    <input type="time" name="heure_fin" [(ngModel)]="horaire.heure_fin"
+                                        (input)="effacerErreur('heure_fin')" class="form-control" id="heure_fin">
+                                    <div class="input-group-append" *ngIf="erreurs && erreurs['heure_fin']">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="text-danger" *ngIf="erreurs && erreurs['heure_fin']">{{erreurs['heure_fin']}}
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <button class="btn btn-primary w-100" type="submit">Ajouter</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

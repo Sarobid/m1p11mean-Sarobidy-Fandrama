@@ -1,5 +1,5 @@
 var utilisateurService = {
-
+    
     deleteEmploye : (id,response,afficheError)=>{
         fetch(url() + "/utilisateur/employe/delete/"+id, {
             method: 'GET',

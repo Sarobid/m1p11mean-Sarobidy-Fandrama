@@ -1,0 +1,161 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Liste des horaires de travail</h1>
+    </div>
+    <section class="section">
+        <div class="row">
+            <div class="col-xl">
+                <div class="card">
+                    <div class="card-body">
+                        <!---S'il y a loading -->
+                        <div *ngIf="loading">
+                            <div style="text-align: center;">
+                                <app-loading></app-loading>
+                            </div>
+                        </div>
+                        <!--Form recherche-->
+                        <form class="row g-3" style="margin-top: 10px;">
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                    <input type="date" [(ngModel)]="searh.datedebut" name="datedebut"
+                                        (input)="recherche()" class="form-control" id="datedebut"
+                                        placeholder="datedebut">
+                                    <label for="floatingEmail">Date debut</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                    <input type="date" [(ngModel)]="searh.dateFin" name="datefin" (input)="recherche()"
+                                        class="form-control" id="datefin" placeholder="datefin">
+                                    <label for="floatingEmail">Date Fin</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-floating">
+                                    <input type="time" [(ngModel)]="searh.heure_debut" name="heure_debut"
+                                        (input)="recherche()" class="form-control" id="heure_debut"
+                                        placeholder="heure_debut">
+                                    <label for="floatingEmail">Heure debut</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-floating">
+                                    <input type="time" [(ngModel)]="searh.heure_fin" name="heure_fin"
+                                        (input)="recherche()" class="form-control" id="heure_fin"
+                                        placeholder="heure_fin">
+                                    <label for="floatingEmail">Heure Fin</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-outline-success btn-sm" (click)="voirTout()">Voir
+                                    tout</button>
+                            </div>
+                        </form>
+                        <!---Table-->
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">heure debut</th>
+                                    <th scope="col">heure fin</th>
+                                    <th scope="col">duree</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="listeHoraire">
+                                <tr *ngFor="let h of listeHoraireFiltre">
+                                    <td>{{ h.dateFormat }}</td>
+                                    <td>{{ h.heure_debut }}</td>
+                                    <td>{{ h.heure_fin }}</td>
+                                    <td>{{ h.dureeFormat }}</td>
+                                    <td><button type="button" class="btn btn-outline-primary btn-sm"
+                                            data-bs-toggle="modal" data-bs-target="#verticalycentered"
+                                            (click)="afficheModal(h._id,h.date,h.heure_debut,h.heure_fin)">
+                                            modifier
+                                        </button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+<div class="modal fade" id="verticalycentered" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Horaire de travail<br /> <strong>{{horaire.date_av}}</strong></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!---S'il y a loading -->
+                <div *ngIf="loadingModif">
+                    <div style="text-align: center;">
+                        <app-loading></app-loading>
+                    </div>
+                </div>
+                <!---S'il y a validation -->
+                <div *ngIf="validation">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <i class="bi bi-check-circle me-1"></i>
+                        <strong>Modification avec succes !</strong>
+                        <button type="button" class="btn-close" (click)="deValidation()"></button>
+                    </div>
+                </div>
+                <!--Date-->
+                <div class="col-md-6">
+                    <label for="yourEmail" class="form-label">Date</label>
+                    <div class="input-group">
+                        <input type="date" name="date" [(ngModel)]="horaire.date" (input)="effacerErreur('date')"
+                            class="form-control" id="date">
+                        <div class="input-group-append" *ngIf="erreurs && erreurs['date']">
+                            <span class="input-group-text">
+                                <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="text-danger" *ngIf="erreurs && erreurs['date']">{{erreurs['date']}}
+                    </div>
+                </div>
+                <!--heure debut-->
+                <div class="col-md-6">
+                    <label for="yourEmail" class="form-label">Heure debut</label>
+                    <div class="input-group">
+                        <input type="time" name="heure_debut" [(ngModel)]="horaire.heure_debut"
+                            (input)="effacerErreur('heure_debut')" class="form-control" id="heure_debut">
+                        <div class="input-group-append" *ngIf="erreurs && erreurs['heure_debut']">
+                            <span class="input-group-text">
+                                <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="text-danger" *ngIf="erreurs && erreurs['heure_debut']">{{erreurs['heure_debut']}}
+                    </div>
+                </div>
+                <!--heure fin-->
+                <div class="col-md-6">
+                    <label for="yourEmail" class="form-label">Heure Fin</label>
+                    <div class="input-group">
+                        <input type="time" name="heure_fin" [(ngModel)]="horaire.heure_fin"
+                            (input)="effacerErreur('heure_fin')" class="form-control" id="heure_fin">
+                        <div class="input-group-append" *ngIf="erreurs && erreurs['heure_fin']">
+                            <span class="input-group-text">
+                                <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="text-danger" *ngIf="erreurs && erreurs['heure_fin']">{{erreurs['heure_fin']}}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="modifier()">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+</div>
