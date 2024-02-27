@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+var serv = require("./../service/service")
+
 const { Schema } = mongoose;
 const servicesSchema = new Schema({
     _id: {
@@ -7,7 +9,8 @@ const servicesSchema = new Schema({
     },
     nom:{
         type : String,
-        required : [true,"Le nom est requis"]
+        required : [true,"Le nom est requis"],
+        unique : true
     },
     prix:{
         type : Number,

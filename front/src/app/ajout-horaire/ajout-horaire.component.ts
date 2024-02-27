@@ -16,8 +16,7 @@ export class AjoutHoraireComponent implements OnInit{
   horaire={
     date : '',
     heure_debut:'',
-    heure_fin:'',
-    date_fin:''
+    heure_fin:''
   }
   erreurs: any = {};
   validation : boolean = false;
@@ -39,8 +38,7 @@ export class AjoutHoraireComponent implements OnInit{
       this.horaire={
         date : '',
         heure_debut:'',
-        heure_fin:'',
-        date_fin:''
+        heure_fin:''
       }
       this.socketHoraire.signale("new");
     },(error:any)=>{

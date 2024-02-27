@@ -35,3 +35,7 @@ function heureInMillisecconde(heure){
     return (+h[0]) * 60 * 60 * 1000 + (+h[1]) * 60 * 1000;
 }
 exports.heureInMillisecconde = heureInMillisecconde;
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+exports.numberWithCommas = numberWithCommas;

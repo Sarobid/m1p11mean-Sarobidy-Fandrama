@@ -54,7 +54,7 @@ module.exports = function (app) {
     })
 
     app.post("/utilisateur/client",(req,res)=>{
-        utilisateurServ.nouveauUtilisateur(roleServ.nameRoleClient,req.body.personne,req.body.email,req.body.url)
+        utilisateurServ.nouveauUtilisateur(roleServ.nameRoleManager,req.body.personne,req.body.email,req.body.url)
         .then(data => {
             res.json(data);
         }).catch(err => {

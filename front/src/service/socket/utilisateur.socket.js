@@ -4,5 +4,8 @@ var utilSocket = {
     },
     horaire : ()=>{
         return socketService.fonction("/horaire");
+    },
+    listeService: () => {
+        return socketService.fonction("/service");
     }
 }

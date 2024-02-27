@@ -24,14 +24,11 @@ export class LoginComponent {
     this.loading = true;
     utilisateurService.login(this.utilisateur,(data:any)=>{
       this.loading = false;
-      authServ.enregistrementUtilisateur(data.utilisateur);
       authServ.enregistrementToken(data.token);
       if(data.utilisateur.role_id.role==="MANAGER"){
         this.router.navigate(['/manager']);
       }else if(data.utilisateur.role_id.role==="EMPLOYE"){
         this.router.navigate(['/personnel']);
-      }else{
-        this.router.navigate(['/client']);
       }
     },(err:any)=>{
       this.loading = false;

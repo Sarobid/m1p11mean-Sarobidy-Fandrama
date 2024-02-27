@@ -20,14 +20,14 @@
                                     <input type="date" [(ngModel)]="searh.datedebut" name="datedebut"
                                         (input)="recherche()" class="form-control" id="datedebut"
                                         placeholder="datedebut">
-                                    <label for="floatingEmail">Date debut minimum</label>
+                                    <label for="floatingEmail">Date debut</label>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-floating">
                                     <input type="date" [(ngModel)]="searh.dateFin" name="datefin" (input)="recherche()"
                                         class="form-control" id="datefin" placeholder="datefin">
-                                    <label for="floatingEmail">Date debut maximum</label>
+                                    <label for="floatingEmail">Date Fin</label>
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -55,8 +55,7 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col">Date debut</th>
-                                    <th scope="col">Date Fin</th>
+                                    <th scope="col">Date</th>
                                     <th scope="col">heure debut</th>
                                     <th scope="col">heure fin</th>
                                     <th scope="col">duree</th>
@@ -66,13 +65,12 @@
                             <tbody *ngIf="listeHoraire">
                                 <tr *ngFor="let h of listeHoraireFiltre">
                                     <td>{{ h.dateFormat }}</td>
-                                    <td>{{ h.dateFinFormat }}</td>
                                     <td>{{ h.heure_debut }}</td>
                                     <td>{{ h.heure_fin }}</td>
                                     <td>{{ h.dureeFormat }}</td>
                                     <td><button type="button" class="btn btn-outline-primary btn-sm"
                                             data-bs-toggle="modal" data-bs-target="#verticalycentered"
-                                            (click)="afficheModal(h._id,h.date,h.heure_debut,h.heure_fin,h.date_fin)">
+                                            (click)="afficheModal(h._id,h.date,h.heure_debut,h.heure_fin)">
                                             modifier
                                         </button></td>
                                 </tr>
@@ -90,7 +88,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Horaire de travail<br /> <strong>{{horaire.date_av}}</strong>à <strong>{{horaire.date_fin_format}}</strong></h5>
+                <h5 class="modal-title">Horaire de travail<br /> <strong>{{horaire.date_av}}</strong></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -110,7 +108,7 @@
                 </div>
                 <!--Date-->
                 <div class="col-md-6">
-                    <label for="yourEmail" class="form-label">Date Debut</label>
+                    <label for="yourEmail" class="form-label">Date</label>
                     <div class="input-group">
                         <input type="date" name="date" [(ngModel)]="horaire.date" (input)="effacerErreur('date')"
                             class="form-control" id="date">
@@ -121,20 +119,6 @@
                         </div>
                     </div>
                     <div class="text-danger" *ngIf="erreurs && erreurs['date']">{{erreurs['date']}}
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <label for="yourEmail" class="form-label">Date fin</label>
-                    <div class="input-group">
-                        <input type="date" name="date" [(ngModel)]="horaire.date_fin"
-                            (input)="effacerErreur('date_fin')" class="form-control" id="date_fin">
-                        <div class="input-group-append" *ngIf="erreurs && erreurs['date_fin']">
-                            <span class="input-group-text">
-                                <i class="bi bi-exclamation-triangle-fill text-danger"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="text-danger" *ngIf="erreurs && erreurs['date_fin']">{{erreurs['date_fin']}}
                     </div>
                 </div>
                 <!--heure debut-->

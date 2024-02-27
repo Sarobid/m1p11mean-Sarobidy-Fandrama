@@ -3,20 +3,46 @@ var Contr = require('./../../service/service')
 
 async function getAll(){
     try {
-        var data = await Serv.find();
-        return data;
+        var datas = await Serv.find();
+        return datas;
     } catch (error) {
         throw error;
     }
 }
 exports.getAll = getAll;
 
+async function getAllActivate(){
+    try {
+        var datas = await Serv.find({delete:false});
+        return datas;
+    } catch (error) {
+        throw error;
+    }
+}
+exports.getAllActivate = getAllActivate;
+
 async function insertion(nom,prix,durees,commission){
     try {
         if(durees == null || durees == undefined){
-            throw new Error('duree nécessaire')
+            let er = new Error("Durée nécessaire");
+            er.name = "duree";
+            throw er;
+        }
+        if(prix <= 0){
+            let er = new Error("Prix invalide");
+            er.name = "prix";
+            throw er;
         }
         let duree = Contr.heureInMillisecconde(durees);
+        if(duree <= 0){
+            let er = new Error("Durée invalide");
+            er.name = "duree";
+            throw er;
+        }if(commission <= 0 || commission >=100){
+            let er = new Error("Commission invalide");
+            er.name = "commission";
+            throw er;
+        }
         var serv = new Serv({nom,prix,duree,commission});
         var data = await serv.save();
         return data;

@@ -19,5 +19,8 @@ var serv = {
     heureInMillisecconde : (heure)=>{
         let h = heure.split(":");
         return (+h[0]) * 60 * 60 * 1000 + (+h[1]) * 60 * 1000;
+    },
+    formatPrice : (price)=> {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
 }

@@ -50,8 +50,7 @@ async function insertion(value, utilisateur) {
     try {
         let horaire = new HoraireTravail(value);
         horaire.utilisateur_id = utilisateur
-        await controlleDate(horaire.date,"date", utilisateur._id);
-        await controlleDate(horaire.date_fin,"date_fin", utilisateur._id);
+        await controlleDate(horaire.date, utilisateur._id);
         let data = await horaire.save();
         return { value: true };
     } catch (error) {
@@ -70,7 +69,7 @@ async function getAllByUtilisateur(utilisateur) {
 }
 exports.getAllByUtilisateur = getAllByUtilisateur;
 
-async function update(debut, fin, date,date_fin, id) {
+async function update(debut, fin, date, id) {
     try {
         let horaire = await findById(id);
         if (horaire === null) {
@@ -78,13 +77,9 @@ async function update(debut, fin, date,date_fin, id) {
         }
         horaire.heure_debut = debut;
         horaire.fin = fin;
-        if (horaire.date.toDateString() !== new Date(date).toDateString()) {
-            horaire.date = new Date(date);
-            await controlleDate(date,"date", horaire.utilisateur_id);
-        }
-        if (horaire.date_fin.toDateString()!== new Date(date_fin).toDateString()) {
-            horaire.date_fin = new Date(date_fin);
-            await controlleDate(date_fin,"date_fin", horaire.utilisateur_id);
+        if (horaire.date > new Date(date) || horaire.date < new Date(date)) {
+            horaire.date = date;
+            await controlleDate(horaire.date, horaire.utilisateur_id);
         }
         let h = await horaire.save();
         return { value: true };
@@ -104,16 +99,14 @@ async function findById(id) {
 }
 exports.findById = findById;
 
-async function controlleDate(date,name, id) {
+async function controlleDate(date, id) {
     try {
-        let d = new Date(date);
-        console.log({ utilisateur_id: id , date :{$gte: d }, date_fin:{$lt:d}})
-        let horaire = await HoraireTravail.find({ utilisateur_id: id , date :{$lt: d }, date_fin:{$gte:d}});
-        console.log(horaire);
-        console.log(horaire.length);
-        if (horaire.length > 0) {
-            throw { status: 400, name: name, message: "Date déjà definie" }
-        }       
+        //console.log({date:new Date(date),utilisateur_id:id});
+        let horaire = await HoraireTravail.findOne({ date: new Date(date), utilisateur_id: id });
+        if (horaire !== null) {
+            throw { status: 400, name: "date", message: "Date déjà definie" }
+        }
+        
         console.log("non controlleDate");
         return horaire;
     } catch (error) {
