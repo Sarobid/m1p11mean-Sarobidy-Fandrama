@@ -96,7 +96,7 @@ async function nouveauUtilisateur(roles, personne, email,http) {
             let data = await findById(utilisateur._id);
             await servEmail.sendEmail(email, 'MEAN Beauty', "<h1>Bienvenue</h1><h4>" + data.personne_id.nom + " " + data.personne_id.prenom + "</h4><p>"+
             "Pour terminer votre inscription veuillez"+"<a href='"
-                + http + data._id + "'>cliquer ici</a> s'il vous plait</p>", (val) => {
+                + http +"/inscription/"+ data._id + "'>cliquer ici</a> s'il vous plait</p>", (val) => {
                     is = val;
                 });
             return {value:true};
