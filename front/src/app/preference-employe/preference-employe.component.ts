@@ -11,13 +11,13 @@ import {
 } from '@angular/cdk/drag-drop';
 
 @Component({
-  selector: 'app-preference-service',
+  selector: 'app-preference-employe',
   standalone: true,
   imports: [CdkDropList, CdkDrag],
-  templateUrl: './preference-service.component.html',
-  styleUrl: './preference-service.component.css'
+  templateUrl: './preference-employe.component.html',
+  styleUrl: './preference-employe.component.css'
 })
-export class PreferenceServiceComponent {
+export class PreferenceEmployeComponent {
   erreurs: any = {};
   loading : boolean = false;
   loadingModif : boolean = false;

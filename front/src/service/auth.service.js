@@ -1,4 +1,14 @@
 var authServ = {
+    deconnection : ()=>{
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+    },
+    enregistrementUtilisateur : (data)=>{
+        localStorage.setItem("user",JSON.stringify(data));
+    },
+    getUtilisateur : ()=>{
+        return JSON.parse(localStorage.getItem("user"));
+    },
     enregistrementToken : (token)=>{
         localStorage.setItem("token",token);
     },

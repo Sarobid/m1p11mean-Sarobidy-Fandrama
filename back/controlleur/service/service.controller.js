@@ -16,6 +16,9 @@ module.exports = function (app) {
             });
     });
     app.get("/service/getAll",(req,res)=>{
+        console.log("liste service");
+        authServ.chekAutorisation([roleServ.nameRoleManager],req,res)
+        .then(util=>{
             serviceServ.getAll()
             .then(data => {
                 res.json(data);
@@ -23,10 +26,14 @@ module.exports = function (app) {
                 res.status(err.status || 400);
                 serv.analyseError(err).then(error=>{res.send(error)})
             });
+        }).catch(err => {
+            res.status(err.status || 400);
+            serv.analyseError(err).then(error=>{res.send(error)})
+        });
     });
     app.get("/service/getAllActive",(req,res)=>{
-        // authServ.chekAutorisation([roleServ.nameRoleManager,roleServ.nameRoleClient,roleServ.nameRoleEmp],req,res)
-        // .then(util=>{
+        authServ.chekAutorisation([roleServ.nameRoleManager,roleServ.nameRoleClient,roleServ.nameRoleEmp],req,res)
+        .then(util=>{
             serviceServ.getAllActivate()
             .then(data => {
                 res.json(data);
@@ -34,14 +41,14 @@ module.exports = function (app) {
                 res.status(err.status || 400);
                 serv.analyseError(err).then(error=>{res.send(error)})
             });
-        // }).catch(err => {
-        //     res.status(err.status || 400);
-        //     serv.analyseError(err).then(error=>{res.send(error)})
-        // });
+        }).catch(err => {
+            res.status(err.status || 400);
+            serv.analyseError(err).then(error=>{res.send(error)})
+        });
     });
     app.post("/service/delete",(req,res)=>{
-        // authServ.chekAutorisation([roleServ.nameRoleManager],req,res)
-        // .then(util=>{
+        authServ.chekAutorisation([roleServ.nameRoleManager],req,res)
+        .then(util=>{
             serviceServ.updateDelete(req.body.id)
             .then(data => {
                 res.json(data);
@@ -49,14 +56,14 @@ module.exports = function (app) {
                 res.status(err.status || 400);
                 serv.analyseError(err).then(error=>{res.send(error)})
             });
-        // }).catch(err => {
-        //     res.status(err.status || 400);
-        //     serv.analyseError(err).then(error=>{res.send(error)})
-        // });
+        }).catch(err => {
+            res.status(err.status || 400);
+            serv.analyseError(err).then(error=>{res.send(error)})
+        });
     });
     app.post("/service/active",(req,res)=>{
-        // authServ.chekAutorisation([roleServ.nameRoleManager],req,res)
-        // .then(util=>{
+        authServ.chekAutorisation([roleServ.nameRoleManager],req,res)
+        .then(util=>{
             serviceServ.activeService(req.body.id)
             .then(data => {
                 res.json(data);
@@ -64,14 +71,14 @@ module.exports = function (app) {
                 res.status(err.status || 400);
                 serv.analyseError(err).then(error=>{res.send(error)})
             });
-        // }).catch(err => {
-        //     res.status(err.status || 400);
-        //     serv.analyseError(err).then(error=>{res.send(error)})
-        // });
+        }).catch(err => {
+            res.status(err.status || 400);
+            serv.analyseError(err).then(error=>{res.send(error)})
+        });
     });
     app.post("/service/update",(req,res)=>{
-        // authServ.chekAutorisation([roleServ.nameRoleManager],req,res)
-        // .then(util=>{
+        authServ.chekAutorisation([roleServ.nameRoleManager],req,res)
+        .then(util=>{
             data={
                 nom : req.body.nom,
                 prix : req.body.prix,
@@ -86,10 +93,10 @@ module.exports = function (app) {
                 res.status(err.status || 400);
                 serv.analyseError(err).then(error=>{res.send(error)})
             });
-        // }).catch(err => {
-        //     res.status(err.status || 400);
-        //     serv.analyseError(err).then(error=>{res.send(error)})
-        // });
+        }).catch(err => {
+            res.status(err.status || 400);
+            serv.analyseError(err).then(error=>{res.send(error)})
+        });
     });
     app.post("/service/findOne",(req,res)=>{
         serviceServ.findServiceById(req.body.id)

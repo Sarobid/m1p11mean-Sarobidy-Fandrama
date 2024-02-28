@@ -1,4 +1,8 @@
+.top-content {
+  margin-top: 6rem;
+}
 .example-container {
+    /* margin-top: 100px; */
     width: 400px;
     max-width: 100%;
     margin: 0 25px 25px 0;
@@ -20,7 +24,7 @@
     border-bottom: solid 1px #ccc;
     color: rgba(0, 0, 0, 0.87);
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;

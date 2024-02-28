@@ -19,6 +19,8 @@ require("./controlleur/utilisateur/utilisateur.controlleur")(app);
 require("./controlleur/auth/auth.controlleur")(app);
 require("./controlleur/horaireTravail/horaireTravail.controlleur")(app);
 require("./controlleur/service/service.controller")(app);
+require("./controlleur/preferenceService/prefServ.controller")(app);
+require("./controlleur/preferenceEmploye/prefEmp.controller")(app);
 
 const ws = require('ws');
 const httpServ = http.createServer(app);

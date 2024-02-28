@@ -1,21 +1,6 @@
-var serviceService = {
-    getAll : (setData)=>{
-        fetch(url() + "/service/getAll", {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'authorization': `Bearer ${authServ.getToken()}`
-            }
-        }).then(res => res.json()) 
-        .then(data => {
-            setData(data);
-        })
-        .catch(error => {
-            alert(error); 
-        });
-    },
-    nouveauService : (data,response,afficheError)=>{
-        fetch(url() + "/service/insert", {
+var prefServ = {
+    getAlls : (data,response,afficheError)=>{
+        fetch(url() + "/prefServ/allService", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -23,7 +8,7 @@ var serviceService = {
             },
             body:JSON.stringify(data)
         }).then(res => {
-            if(res.ok){
+            if(res.ok){ 
                 res.json().then(data => {
                     response(data);
                 })
@@ -34,8 +19,8 @@ var serviceService = {
             }
         })
     },
-    update : (data,response,afficheError)=>{
-        fetch(url() + "/service/update", {
+    getById : (data,response,afficheError)=>{
+        fetch(url() + "/prefServ/getById", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -43,7 +28,7 @@ var serviceService = {
             },
             body:JSON.stringify(data)
         }).then(res => {
-            if(res.ok){
+            if(res.ok){ 
                 res.json().then(data => {
                     response(data);
                 })
@@ -54,8 +39,8 @@ var serviceService = {
             }
         })
     },
-    delete : (data,response,afficheError)=>{
-        fetch(url() + "/service/delete", {
+    nouveauPref : (data,response,afficheError)=>{
+        fetch(url() + "/prefServ/insertion", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -63,7 +48,7 @@ var serviceService = {
             },
             body:JSON.stringify(data)
         }).then(res => {
-            if(res.ok){
+            if(res.ok){ 
                 res.json().then(data => {
                     response(data);
                 })
@@ -74,8 +59,8 @@ var serviceService = {
             }
         })
     },
-    active : (data,response,afficheError)=>{
-        fetch(url() + "/service/active", {
+    deletes : (data,response,afficheError)=>{
+        fetch(url() + "/prefServ/deletes", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -83,7 +68,7 @@ var serviceService = {
             },
             body:JSON.stringify(data)
         }).then(res => {
-            if(res.ok){
+            if(res.ok){ 
                 res.json().then(data => {
                     response(data);
                 })
@@ -93,5 +78,5 @@ var serviceService = {
                 })
             }
         })
-    },
+    }
 }
