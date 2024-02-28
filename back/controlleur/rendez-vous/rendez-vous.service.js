@@ -1,6 +1,7 @@
 const RendezVous = require("./../../model/rendezVous");
 var serv = require("./../service/service.service");
 var fonctServ = require("./../../service/service");
+const { getListeEmploye } = require("../utilisateur/employe/employe.service");
 
 async function deleteRendezVous(idRendezVous){
     try {
@@ -62,6 +63,134 @@ async function nouveauRendezVous(value,paye,date,client) {
 }
 exports.nouveauRendezVous = nouveauRendezVous;
 
+async function getListRendezVous(employe_id,client_id,service_id, dateDebut,dateFin,heureMin,heureMax,etat){
+    try {
+        let match = {};
+        if(employe_id !== null && employe_id !==''){
+            match["employe_id"] = employe_id;
+        }
+        if(client_id !== null && client_id !==''){
+            match["client_id"] = client_id;
+        }
+        if(service_id !== null && service_id !==''){
+            let s = await serv.findServiceById(service_id);
+            match["service_id"] = s._id;
+        }   
+        if(dateDebut !== null && dateDebut !==''){
+            match["date"] = {$gte : new Date(dateDebut)};
+        }
+        if(dateFin !== null && dateFin !==''){
+            match["date"] = {$lte : new Date(dateFin)};
+        }
+        if(heureMin !== null && heureMin !== ''){
+            //onsole.log("heureMin = "+heureMin)
+            let h = fonctServ.heureInMillisecconde(heureMin);
+            if(h > 0){
+                match["heureDebutEnMill"] = { $gte : h}
+            }
+        }
+        if(heureMax !== null && heureMax !== ''){
+            //console.log("heureMax = "+heureMax)
+            let hm = fonctServ.heureInMillisecconde(heureMax);
+            if(hm > 0){
+                match["heureDebutEnMill"] = { $lte : hm}
+            }
+        }
+        if(etat !== null){
+            match['etat'] = etat;
+        }
+        console.log(match)
+        let data = await RendezVous.aggregate([{
+            $addFields: {
+                heureAsDate: {
+                    $toDate: {
+                        $concat: ["1970-01-01T", "$heure", ":00Z"]
+                    }
+                }
+            }
+        },
+        {
+            $addFields: {
+                heureDuree: { $add: ["$heureAsDate", "$duree"] }
+            }
+        },
+        ]).lookup({
+            from: "utilisateurs",
+            localField: "employe_id",
+            foreignField: "_id",
+            as: "employe"
+        }).unwind("$employe")
+        .lookup({
+            from: "services",
+            localField: "service_id",
+            foreignField: "_id",
+            as: "service"
+        }).unwind("$service")
+        .lookup({
+            from: "personnes",
+            localField: "employe.personne_id",
+            foreignField: "_id",
+            as: "employe.personne"
+        }).unwind("$employe.personne")
+        .addFields({
+            heureFin: {
+                $dateToString: {
+                    format: "%H:%M",
+                    date: "$heureDuree"
+                }
+            }
+        }).addFields({
+            heureDebutEnMill :  {
+                $function: {
+                  body: fonctServ.heureInMillisecconde.toString(),
+                  args: ["$heure"],
+                  lang: "js"
+                }
+            }
+        }).addFields({
+            dureeFormat :{
+                $function: {
+                    body: fonctServ.afficheDureMilliseconde.toString(),
+                    args: ["$duree"],
+                    lang: "js"
+                  }
+            }
+        }).addFields({
+            dateFormat :{
+                $function: {
+                    body: fonctServ.afficheDate.toString(),
+                    args: ["$date"],
+                    lang: "js"
+                  }
+            }
+        }).addFields({
+            prixFormat :{
+                $function: {
+                    body: fonctServ.formatPrice.toString(),
+                    args: ["$prix"],
+                    lang: "js"
+                  }
+            }
+        }).addFields({
+            payeFormat :{
+                $function: {
+                    body: fonctServ.formatPrice.toString(),
+                    args: ["$paye"],
+                    lang: "js"
+                  }
+            }
+        }).match(match).project({
+            employe:{
+                mdp:0
+            }
+        }).sort({date:-1,heureDebutEnMill:1})
+        //console.log(data);
+        return data;
+    } catch (error) {
+        throw error;
+    }
+}
+exports.getListRendezVous = getListRendezVous;
 async function getRendezVousBy(employe_id,client_id, date,heureMinMill,etat){
     try {
         let match = {};

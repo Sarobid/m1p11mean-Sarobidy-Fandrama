@@ -4,6 +4,7 @@ import { AjoutHoraireComponent } from './ajout-horaire/ajout-horaire.component';
 import { ClientComponent } from './client/client.component';
 import { EmployeComponent } from './employe/employe.component';
 import { HeadPageLibreComponent } from "./head-page-libre/head-page-libre.component";
+import { HistoriqueRendezVousComponent } from './historique-rendez-vous/historique-rendez-vous.component';
 import { InscriptionComponent } from "./inscription/inscription.component";
 import { ListeEmployeComponent } from './liste-employe/liste-employe.component';
 import { ListeHoraireComponent } from './liste-horaire/liste-horaire.component';
@@ -17,7 +18,8 @@ import { ValidMotDePasseComponent } from "./valid-mot-de-passe/valid-mot-de-pass
 export const routes: Routes = [
     { path: 'client', component: ClientComponent ,
     children:[
-        {path:"nouveau",component:NouveauRendezVousComponent}
+        {path:"nouveau",component:NouveauRendezVousComponent},
+        {path:"historique",component:HistoriqueRendezVousComponent}
     ]},
     { path: 'personnel', component: EmployeComponent ,
     children:[

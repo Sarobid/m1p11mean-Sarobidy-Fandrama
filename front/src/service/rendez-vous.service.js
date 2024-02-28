@@ -1,4 +1,25 @@
 var rendServ = {
+    getHistoriqueRendezVous : (data,response,afficheError)=>{
+        ///alert(JSON.stringify(data))
+        fetch(url() + "/rendez-vous/historique", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${authServ.getToken()}`
+            },
+            body:JSON.stringify(data)
+        }).then(res => {
+            if(res.ok){
+                res.json().then(data => {
+                    response(data);
+                })
+            }else{
+                res.json().then(data => {
+                    afficheError(data);
+                })
+            }
+        })
+    },
     annulerRendezVous : (id,response,afficheError)=>{
         fetch(url() + "/rendez-vous/annuler/"+id, {
             method: 'GET',
