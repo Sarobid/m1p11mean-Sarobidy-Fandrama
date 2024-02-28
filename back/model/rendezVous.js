@@ -40,10 +40,14 @@ const rendezVousSchema = new Schema({
         type : String,
         required : true
     },
+    duree : {
+        type : Number,
+        required : true
+    },
     etat : {
         type : Number,
         default : 0
     }
-}, { timestamps: false });
+}, { timestamps: true });
 const RendezVous = mongoose.model('rendez_vou', rendezVousSchema);
 module.exports = RendezVous;

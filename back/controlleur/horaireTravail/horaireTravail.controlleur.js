@@ -2,9 +2,25 @@ var horaireServ = require("./horaireTravail.service");
 var serv = require("./../../service/errorService");
 var authServ = require("./../auth/auth.service");
 var roleServ = require("./../role/role.service");
-
 var roles = [roleServ.nameRoleEmp];
 module.exports = function (app) {
+
+    app.get("/horaire/dispo/:date/:service", (req, res) => {
+        authServ.chekAutorisation([roleServ.nameRoleClient], req, res)
+            .then(util => {
+                horaireServ.getEmployeDisponible(req.params.date, req.params.service,util)
+                    .then(data => {
+                        res.json(data);
+                    }).catch(err => {
+                        res.status(err.status || 400);
+                        serv.analyseError(err).then(error => { res.send(error) })
+                    });
+            }).catch(err => {
+                res.status(err.status || 400);
+                serv.analyseError(err).then(error => { res.send(error) })
+            });
+    })
+
     app.get("/horaire/duree", (req, res) => {
         authServ.chekAutorisation([roleServ.nameRoleManager], req, res)
             .then(util => {
@@ -54,7 +70,7 @@ module.exports = function (app) {
     app.post("/horaire/update/:id", (req, res) => {
         authServ.chekAutorisation(roles, req, res)
             .then(util => {
-                horaireServ.update(req.body.heure_debut, req.body.heure_fin, req.body.date,req.body.date_fin, req.params.id)
+                horaireServ.update(req.body.heure_debut, req.body.heure_fin, req.body.date, req.body.date_fin, req.params.id)
                     .then(data => {
                         res.json(data);
                     }).catch(err => {
