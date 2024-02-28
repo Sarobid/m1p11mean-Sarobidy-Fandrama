@@ -7,3 +7,4 @@ declare var socketService : any;
 declare var serv : any;
 
 declare var serviceService : any;
+declare var rendServ : any;

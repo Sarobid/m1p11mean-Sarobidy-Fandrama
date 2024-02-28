@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-erreur',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './erreur.component.html',
   styleUrl: './erreur.component.css'
 })
