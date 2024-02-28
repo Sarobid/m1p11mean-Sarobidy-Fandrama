@@ -49,4 +49,20 @@ module.exports =function(app){
         //     serv.analyseError(err).then(error=>{res.send(error)})
         // });
     })
+    app.post("/prefEmp/deletes",(req,res) => {
+        // authServ.chekAutorisation([roleServ.nameRoleManager,roleServ.nameRoleClient,roleServ.nameRoleEmp],req,res)
+        // .then(util=>{
+            console.log(req.body.client_id);
+            prefEmpServ.deletes(req.body.employe_id,req.body.client_id)
+            .then(data => {
+                res.json(data);
+            }).catch(err => {
+                res.status(err.status || 400);
+                serv.analyseError(err).then(error=>{res.send(error)})
+            });
+        // }).catch(err => {
+        //     res.status(err.status || 400);
+        //     serv.analyseError(err).then(error=>{res.send(error)})
+        // });
+    })
 }

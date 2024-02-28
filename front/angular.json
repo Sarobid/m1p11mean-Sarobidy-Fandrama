@@ -50,6 +50,7 @@
               "src/service/service.service.js",
               "src/service/horaire.service.js",
               "src/service/preferenceService.service.js",
+              "src/service/preferenceEmploye.service.js",
               "src/service/socket/utilisateur.socket.js",
               "src/service/socket/socket.js",
               "src/service/auth.service.js",

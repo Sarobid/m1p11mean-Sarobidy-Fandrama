@@ -22,19 +22,19 @@ export class PreferenceEmployeComponent {
   loading : boolean = false;
   loadingModif : boolean = false;
   constructor(private errorService : ErrorService){};
-  listeService : any []=[];
+  listeEmploye : any []=[];
   done : any[] = [];
   ngOnInit(): void {
     let client = authServ.getUtilisateur()._id;
-    console.log("ito le id"+client);
+    // console.log("ito le id"+client);
     let datas = {
       client_id : client
     };
-    prefServ.getById(datas,(data:any)=>{
-      console.log(data);
+    prefEmp.getById(datas,(data:any)=>{
+      // console.log(data);
       data.forEach((obj: any) => {
-        // Access the 'service_id' property of each object and push it to the 'serviceIds' array
-        this.done.push(obj.service_id);
+        // Access the 'employe_id' property of each object and push it to the 'serviceIds' array
+        this.done.push(obj.employe_id);
       });
       // this.recherche();
       this.loading = false;
@@ -42,9 +42,9 @@ export class PreferenceEmployeComponent {
       this.errorService.afficheError(error.message);
       this.loading = false;
     });
-    prefServ.getAlls(datas,(data:any)=>{
-      console.log(data);
-      this.listeService = data;
+    prefEmp.getAlls(datas,(data:any)=>{
+      // console.log(data);
+      this.listeEmploye = data;
       // this.recherche();
       this.loading = false;
     },(error:any)=>{
@@ -52,7 +52,6 @@ export class PreferenceEmployeComponent {
       this.loading = false;
     });
   }
-  todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
 
  
   formatPrice(price: number): string {
@@ -78,29 +77,29 @@ export class PreferenceEmployeComponent {
       );
       // console.log(event.item.element.nativeElement.getAttribute('data-id'));
       // console.log(event.container.id);
-      if(event.container.id == 'service'){
-        console.log("ito fafana "+event.item.element.nativeElement.getAttribute('data-id'));
+      if(event.container.id == 'employe'){
+        // console.log("ito fafana "+event.item.element.nativeElement.getAttribute('data-id'));
         let service = event.item.element.nativeElement.getAttribute('data-id');
         let client = authServ.getUtilisateur()._id;
         let datas = {
           client_id : client,
-          service_id : service
+          employe_id : service
         };
-        prefServ.deletes(datas,(data:any)=>{
-          alert("niala");
+        prefEmp.deletes(datas,(data:any)=>{
+          // alert("niala");
         }),(err:any)=>{
           this.erreurs = err.erreur;
           alert(JSON.stringify(this.erreurs))
         }
       }else{
-        console.log("ito ampidirina "+event.item.element.nativeElement.getAttribute('data-id'));
+        // console.log("ito ampidirina "+event.item.element.nativeElement.getAttribute('data-id'));
         let service = event.item.element.nativeElement.getAttribute('data-id');
         let client = authServ.getUtilisateur()._id;
         let datas = {
           client_id : client,
-          service_id : service
+          employe_id : service
         };
-        prefServ.nouveauPref(datas,(data:any)=>{
+        prefEmp.nouveauPref(datas,(data:any)=>{
           // alert("tafiditra");
         }),(err:any)=>{
           this.erreurs = err.erreur;

@@ -41,7 +41,10 @@ async function getAllPref(id){
         .populate({
             path: 'employe_id',
             populate: {
-                path: 'personne_id'
+                path: 'personne_id',
+                populate: {
+                    path: 'sexe_id'
+                }
             }
         });
         return datas;
@@ -50,3 +53,17 @@ async function getAllPref(id){
     }
 }
 exports.getAllPref = getAllPref;
+
+async function deletes(employe_id,client_id){
+    try {
+        // Assuming you have some criteria to find the document you want to delete
+        const result = await prefEmp.findOneAndDelete({ employe_id, client_id });
+        if (!result) {
+            throw new Error('Service non trouvé');
+        }
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+exports.deletes = deletes;

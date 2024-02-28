@@ -52,7 +52,6 @@ export class PreferenceServiceComponent {
       this.loading = false;
     });
   }
-  todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
 
  
   formatPrice(price: number): string {
@@ -79,7 +78,7 @@ export class PreferenceServiceComponent {
       // console.log(event.item.element.nativeElement.getAttribute('data-id'));
       // console.log(event.container.id);
       if(event.container.id == 'service'){
-        console.log("ito fafana "+event.item.element.nativeElement.getAttribute('data-id'));
+        // console.log("ito fafana "+event.item.element.nativeElement.getAttribute('data-id'));
         let service = event.item.element.nativeElement.getAttribute('data-id');
         let client = authServ.getUtilisateur()._id;
         let datas = {
@@ -87,13 +86,13 @@ export class PreferenceServiceComponent {
           service_id : service
         };
         prefServ.deletes(datas,(data:any)=>{
-          alert("niala");
+          // alert("niala");
         }),(err:any)=>{
           this.erreurs = err.erreur;
           alert(JSON.stringify(this.erreurs))
         }
       }else{
-        console.log("ito ampidirina "+event.item.element.nativeElement.getAttribute('data-id'));
+        // console.log("ito ampidirina "+event.item.element.nativeElement.getAttribute('data-id'));
         let service = event.item.element.nativeElement.getAttribute('data-id');
         let client = authServ.getUtilisateur()._id;
         let datas = {

@@ -6,18 +6,18 @@
       <div
         cdkDropList
         #todoList="cdkDropList"
-        [cdkDropListData]="listeService"
+        [cdkDropListData]="listeEmploye"
         [cdkDropListConnectedTo]="[doneList]"
         class="example-list"
         (cdkDropListDropped)="drop($event)" 
-        id="service"
+        id="employe"
         >
-        @for (item of listeService; track item.nom) {
+        @for (item of listeEmploye; track item.nom) {
   
           <div class="example-box" cdkDrag [attr.data-id]="item._id">
-            <p>nom : {{item.nom}}</p>
-            <p>prix : {{formatPrice(item.prix)}}</p>
-            <p>durée : {{milliseconToHeure(item.duree)}}</p>
+            <p>nom : {{item.personne_id.nom}}</p>
+            <p>prenom : {{item.personne_id.prenom}}</p>
+            <p>sexe : {{item.personne_id.sexe_id.nom}}</p>
           </div>
         }
       </div>
@@ -36,9 +36,9 @@
         (cdkDropListDropped)="drop($event)">
         @for (item of done; track item.nom) {
           <div class="example-box" cdkDrag [attr.data-id]="item._id">
-            <p>nom : {{item.nom}}</p>
-            <p>prix : {{formatPrice(item.prix)}}</p>
-            <p>durée : {{milliseconToHeure(item.duree)}}</p>
+            <p>nom : {{item.personne_id.nom}}</p>
+            <p>prenom : {{item.personne_id.prenom}}</p>
+            <p>sexe : {{item.personne_id.sexe_id.nom}}</p>
           </div>
         }
       </div>
