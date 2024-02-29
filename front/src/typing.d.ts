@@ -9,3 +9,4 @@ declare var prefServ : any;
 declare var serviceService : any;
 declare var prefEmp: any;
 declare var rendServ : any;
+declare var chiffServ : any;

@@ -18,7 +18,6 @@ export class ManagerComponent{
   }
   verificationAuthorization(){
     authServ.isAuthorize(["MANAGER"],(data:any)=>{},(error:any)=>{
-    alert("MANAGER")
       this.errorService.afficheError(error.message);
     })
   }

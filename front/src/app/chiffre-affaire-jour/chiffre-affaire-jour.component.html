@@ -1,0 +1,58 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Chiffre d'affaire par jour</h1>
+    </div>
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <form class="row g-3" style="margin-top: 10px;">
+                    <div class="col-sm-2">
+                        <div class="form-floating">
+                            <input type="date" [(ngModel)]="data.dateDebut" name="dateDedut" (input)="recherche()"
+                                class="form-control" id="dateDedut" placeholder="dateDedut">
+                            <label for="nom">Date minimum</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-floating">
+                            <input type="date" [(ngModel)]="data.dateFin" name="dateFin" (input)="recherche()"
+                                class="form-control" id="dateFin" placeholder="dateFin">
+                            <label for="nom">Date maximum </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-12">
+                <div class="card" style="margin-top: 10px;">
+                    <div class="card-body">
+                        <div *ngIf="loadingJour">
+                            <div style="text-align: center;">
+                                <app-loading></app-loading>
+                            </div>
+                        </div>
+                        <table class="table table-bordered" style="margin-top: 10px;">
+                            <thead>
+                                <tr>
+                                    <th scope="col">jour</th>
+                                    <th scope="col" style="text-align: right;">Chiffre avec commission</th>
+                                    <th scope="col" style="text-align: right;" >Commission</th>
+                                    <th scope="col" style="text-align: right;">Chiffre sans commission</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let state of nombreJours">
+                                    <td>{{state.dateFormat}}</td>
+                                    <td style="text-align: right;">{{state.chiffreAvecFormat}}</td>
+                                    <td style="text-align: right;">{{state.totalComFormat}}</td>
+                                    <td style="text-align: right;">{{state.chiffreSansComFormat}}</td>
+                                </tr>
+                                <tr>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

@@ -3,6 +3,7 @@ import { AjoutEmployeComponent } from './ajout-employe/ajout-employe.component';
 // import { ServiceComponent } from './service/service.component';
 import { AjoutHoraireComponent } from './ajout-horaire/ajout-horaire.component';
 import { AjoutServiceComponent } from './ajout-service/ajout-service.component';
+import { ChiffreAffaireJourComponent } from './chiffre-affaire-jour/chiffre-affaire-jour.component';
 import { ClientComponent } from './client/client.component';
 import { EmployeComponent } from './employe/employe.component';
 import { HeadPageLibreComponent } from "./head-page-libre/head-page-libre.component";
@@ -23,6 +24,7 @@ import { ReservationParJourComponent } from './reservation-par-jour/reservation-
 import { StatistiqueHoraireComponent } from './statistique-horaire/statistique-horaire.component';
 import { TacheEmpEffectuerComponent } from './tache-emp-effectuer/tache-emp-effectuer.component';
 import { ValidMotDePasseComponent } from "./valid-mot-de-passe/valid-mot-de-passe.component";
+import { ChiffreAffaireMoisComponent } from './chiffre-affaire-mois/chiffre-affaire-mois.component';
 export const routes: Routes = [
     { path: 'client', component: ClientComponent ,
     children:[
@@ -47,7 +49,9 @@ export const routes: Routes = [
         { path: 'liste-service',component:ListeServiceComponent},
         { path: 'temps-moyen-travail',component:StatistiqueHoraireComponent},
         {path:"reservation-jour",component:ReservationParJourComponent},
-        {path:"reservation-mois",component:ReservartionParMoisComponent}
+        {path:"reservation-mois",component:ReservartionParMoisComponent},
+        {path:"chiffre-affaire-jour",component:ChiffreAffaireJourComponent},
+        {path:"chiffre-affaire-mois",component:ChiffreAffaireMoisComponent}
     ]},
     {
         path: '', component: HeadPageLibreComponent,

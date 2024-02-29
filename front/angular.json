@@ -55,7 +55,8 @@
               "src/service/auth.service.js",
               "src/common.js",
               "src/service/service.js",
-              "src/service/rendez-vous.service.js"
+              "src/service/rendez-vous.service.js",
+              "src/service/chiffre.service.js"
             ],
             "server": "src/main.server.ts",
             "prerender": true,
