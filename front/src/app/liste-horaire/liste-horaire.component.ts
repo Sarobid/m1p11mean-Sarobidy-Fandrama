@@ -19,9 +19,7 @@ export class ListeHoraireComponent implements OnInit {
     date : '',
     heure_debut:'',
     heure_fin:'',
-    date_fin:'',
-    date_av :'',
-    date_fin_format:''
+    date_av :''
   }
   searh={
     datedebut : '',
@@ -51,7 +49,7 @@ export class ListeHoraireComponent implements OnInit {
       datedebut : '',
       dateFin : '',
       heure_debut:'',
-      heure_fin:'',
+      heure_fin:''
     } 
     this.recherche();
   }
@@ -60,10 +58,8 @@ export class ListeHoraireComponent implements OnInit {
       delete this.erreurs[champ];
     }
   }
-  afficheModal(id:any,date:any,heure_debut:any,heure_fin:any,date_fin:any){
+  afficheModal(id:any,date:any,heure_debut:any,heure_fin:any){
     this.horaire.date_av = serv.afficheDate(date);
-    this.horaire.date_fin_format = serv.afficheDate(date_fin);
-    this.horaire.date_fin = date_fin.toDateString();
     this.horaire.date = date.toDateString();
     this.horaire.heure_debut = heure_debut;
     this.horaire.heure_fin = heure_fin;
@@ -79,7 +75,6 @@ export class ListeHoraireComponent implements OnInit {
       this.socketHoraire.signale("upd");
       this.validation = true;
       this.horaire.date_av = serv.afficheDate(new Date(this.horaire.date));
-      this.horaire.date_fin_format = serv.afficheDate(new Date(this.horaire.date_fin));
     },(error:any)=>{
       this.loadingModif = false;
       if(error.status === 401 || error.status === 403){
@@ -112,8 +107,6 @@ export class ListeHoraireComponent implements OnInit {
       h.date = d;
       h['dateFormat'] = serv.afficheDate(d);
       h['dureeFormat'] = serv.afficheDureMilliseconde(h.duree);
-      h.date_fin = new Date(h.date_fin);
-      h['dateFinFormat'] = serv.afficheDate(h.date_fin);
       return is;
     })
     this.loading = false;

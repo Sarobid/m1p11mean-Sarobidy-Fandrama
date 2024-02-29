@@ -1,0 +1,190 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Liste des services</h1>
+    </div>
+    <section class="section">
+        <div class="row">
+            <div class="col-xl">
+                <div class="card">
+                    <div class="card-body">
+                        <!---S'il y a loading -->
+                        <div *ngIf="loading">
+                            <div style="text-align: center;">
+                                <app-loading></app-loading>
+                            </div>
+                        </div>
+                        <!--Form recherche-->
+                        <form class="row g-3" style="margin-top: 10px;">
+                            <div class="col-md-2">
+                                <div class="form-floating">
+                                    <input type="text" [(ngModel)]="searh.nom" name="nom"
+                                        (input)="recherche()" class="form-control" id="nom"
+                                        placeholder="nom">
+                                    <label for="floatingEmail">Nom</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-floating">
+                                    <input type="number" [(ngModel)]="searh.prixMin" name="prixMin"
+                                        (input)="recherche()" class="form-control" id="prixMin"
+                                        placeholder="prixMin">
+                                    <label for="floatingEmail">Prix min</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-floating">
+                                    <input type="number" [(ngModel)]="searh.prixMax" name="prixMax" (input)="recherche()"
+                                        class="form-control" id="prixMax" placeholder="prixMax">
+                                    <label for="floatingEmail">Prix max</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-floating">
+                                    <input type="time" [(ngModel)]="searh.dureeMin" name="dureeMin"
+                                        (input)="recherche()" class="form-control" id="dureeMin"
+                                        placeholder="dureeMin">
+                                    <label for="floatingEmail">Duree min</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-floating">
+                                    <input type="time" [(ngModel)]="searh.dureeMax" name="dureeMax"
+                                        (input)="recherche()" class="form-control" id="dureeMax"
+                                        placeholder="dureeMax">
+                                    <label for="floatingEmail">Duree max</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-outline-success btn-sm" (click)="voirTout()">Voir
+                                    tout</button>
+                            </div>
+                        </form>
+                        <!---Table-->
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Prix</th>
+                                    <th scope="col">Durée</th>
+                                    <th scope="col">Commission</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="listeService">
+                                <tr *ngFor="let h of listeServiceFiltre">
+                                    <td>{{ h.nom }}</td>
+                                    <td>{{ formatPrice(h.prix) }}</td>
+                                    <td>{{ milliseconToHeure(h.duree) }}</td>
+                                    <td>{{ h.commission }} %</td>
+                                    <td><button type="button" class="btn btn-outline-primary btn-sm"
+                                            data-bs-toggle="modal" data-bs-target="#verticalycentered"
+                                            (click)="afficheModal(h._id,h.nom,h.prix,h.duree,h.commission)">
+                                            modifier
+                                        </button>
+                                        <button *ngIf="!h.delete" type="button" class="btn btn-outline-primary btn-sm" (click)="supprimer(h._id)">
+                                            supprimer
+                                        </button>
+                                        <button *ngIf="h.delete" type="button" class="btn btn-outline-primary btn-sm" (click)="activer(h._id)">
+                                            activer
+                                        </button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+<div class="modal fade" id="verticalycentered" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Service <br /> <strong>{{service.nom}}</strong></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!---S'il y a loading -->
+                <div *ngIf="loadingModif">
+                    <div style="text-align: center;">
+                        <app-loading></app-loading>
+                    </div>
+                </div>
+                <!---S'il y a validation -->
+                <div *ngIf="validation">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <i class="bi bi-check-circle me-1"></i>
+                        <strong>Modification avec succes !</strong>
+                        <button type="button" class="btn-close" (click)="deValidation()"></button>
+                    </div>
+                </div>
+                <!--nom-->
+                <div class="col-md-6">
+                    <label for="yourEmail" class="form-label">Nom</label>
+                    <div class="input-group">
+                        <input type="texte" name="nom" [(ngModel)]="service.nom" (input)="effacerErreur('nom')"
+                            class="form-control" id="nom">
+                        <div class="input-group-append" *ngIf="erreurs && erreurs['nom']">
+                            <span class="input-group-text">
+                                <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="text-danger" *ngIf="erreurs && erreurs['nom']">{{erreurs['nom']}}
+                    </div>
+                </div>
+                <!--Prix-->
+                <div class="col-md-6">
+                    <label for="yourEmail" class="form-label">Prix</label>
+                    <div class="input-group">
+                        <input type="number" name="prix" [(ngModel)]="service.prix"
+                            (input)="effacerErreur('prix')" class="form-control" id="prix">
+                        <div class="input-group-append" *ngIf="erreurs && erreurs['prix']">
+                            <span class="input-group-text">
+                                <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="text-danger" *ngIf="erreurs && erreurs['prix']">{{erreurs['prix']}}
+                    </div>
+                </div>
+                <!--heure fin-->
+                <div class="col-md-6">
+                    <label for="yourEmail" class="form-label">Duree</label>
+                    <div class="input-group">
+                        <input type="time" name="duree" [(ngModel)]="service.duree"
+                            (input)="effacerErreur('duree')" class="form-control" id="duree">
+                        <div class="input-group-append" *ngIf="erreurs && erreurs['duree']">
+                            <span class="input-group-text">
+                                <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="text-danger" *ngIf="erreurs && erreurs['duree']">{{erreurs['duree']}}
+                    </div>
+                </div>
+                <!--nom-->
+                <div class="col-md-6">
+                    <label for="yourEmail" class="form-label">Commission</label>
+                    <div class="input-group">
+                        <input type="number" min="0" max="100" name="commission" [(ngModel)]="service.commission" (input)="effacerErreur('commission')"
+                            class="form-control" id="commission">
+                        <div class="input-group-append" *ngIf="erreurs && erreurs['commission']">
+                            <span class="input-group-text">
+                                <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="text-danger" *ngIf="erreurs && erreurs['commission']">{{erreurs['commission']}}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="modifier()">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+</div>

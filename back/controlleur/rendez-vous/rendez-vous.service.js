@@ -355,3 +355,23 @@ async function getDernierRendezVous(utilisateur_id, date,type) {
     }
 }
 exports.getDernierRendezVous = getDernierRendezVous;
+
+async function rendezVousEmploye(employe_id){
+    try {
+        let data = RendezVous.find({employe_id:employe_id,etat:1})
+        return data;
+    } catch (error){
+        throw error;
+    }
+}
+exports.rendezVousEmploye = rendezVousEmploye
+
+async function tacheEffectuerEmploye(employe_id){
+    try {
+        let data = RendezVous.find({employe_id:employe_id,etat:2})
+        return data;
+    } catch (error){
+        throw error;
+    }
+}
+exports.tacheEffectuerEmploye = tacheEffectuerEmploye

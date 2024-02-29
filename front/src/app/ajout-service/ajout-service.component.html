@@ -1,0 +1,84 @@
+<main id="main" class="main">
+  <div class="row justify-content-center">
+    <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+      <div class="d-flex justify-content-center py-4">
+        <a class="logo d-flex align-items-center w-auto">
+          <!-- <img src="assets/img/logo.png" alt=""> -->
+          <span class="d-none d-lg-block">Nouveau service</span>
+        </a>
+      </div>
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="pt-2 pb-2">
+            <h5 class="card-title text-center pb-0 fs-4"></h5>
+          </div>
+
+          <form (ngSubmit)="onSubmit()" class="row g-3">
+            <!--Nom-->
+            <div class="col-12">
+              <label for="yourName" class="form-label">Nom</label>
+              <div class="input-group">
+                <input type="text" name="nom" [(ngModel)]="service.nom"
+                  (input)="effacerErreur('nom')" class="form-control" id="nom">
+                <div class="input-group-append" *ngIf="erreurs && erreurs['nom']">
+                  <span class="input-group-text">
+                    <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                  </span>
+                </div>
+              </div>
+              <div *ngIf="erreurs && erreurs['nom']" class="text-danger">{{erreurs['nom']}}</div>
+            </div>
+            <!--prix-->
+            <div class="col-12">
+              <label for="yourEmail" class="form-label">Prix</label>
+              <div class="input-group">
+                <input type="number" name="prix" [(ngModel)]="service.prix"
+                  (input)="effacerErreur('prix')" class="form-control" id="prix">
+                <div class="input-group-append" *ngIf="erreurs && erreurs['prix']">
+                  <span class="input-group-text">
+                    <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="text-danger" *ngIf="erreurs && erreurs['prix']">{{erreurs['prix']}}</div>
+            </div>
+            <!--Durée-->
+            <div class="col-12">
+              <label for="yourEmail" class="form-label">duree</label>
+              <div class="input-group">
+                <input type="time" name="date" [(ngModel)]="service.duree"
+                  (input)="effacerErreur('duree')" class="form-control" id="date">
+                <div class="input-group-append" *ngIf="erreurs && erreurs['duree']">
+                  <span class="input-group-text">
+                    <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="text-danger" *ngIf="erreurs && erreurs['duree']">
+                {{erreurs['duree']}}</div>
+            </div>
+            <!--Durée-->
+            <div class="col-12">
+              <label for="yourEmail" class="form-label">commission</label>
+              <div class="input-group">
+                <input type="number" name="date" [(ngModel)]="service.commission"
+                  (input)="effacerErreur('commission')" class="form-control" id="date">
+                <div class="input-group-append" *ngIf="erreurs && erreurs['commission']">
+                  <span class="input-group-text">
+                    <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="text-danger" *ngIf="erreurs && erreurs['commission']">
+                {{erreurs['commission']}}</div>
+            </div>
+            <div class="col-12">
+              <button class="btn btn-primary w-100" type="submit">Valider</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>

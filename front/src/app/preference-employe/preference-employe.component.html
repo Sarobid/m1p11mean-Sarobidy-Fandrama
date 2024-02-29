@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="row justify-content-center top-content">
+  <div class="example-container">
+      <h2>Liste Services</h2>
+    
+      <div
+        cdkDropList
+        #todoList="cdkDropList"
+        [cdkDropListData]="listeEmploye"
+        [cdkDropListConnectedTo]="[doneList]"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)" 
+        id="employe"
+        >
+        @for (item of listeEmploye; track item.nom) {
+  
+          <div class="example-box" cdkDrag [attr.data-id]="item._id">
+            <p>nom : {{item.personne_id.nom}}</p>
+            <p>prenom : {{item.personne_id.prenom}}</p>
+            <p>sexe : {{item.personne_id.sexe_id.nom}}</p>
+          </div>
+        }
+      </div>
+    </div>
+    
+    <div class="example-container">
+      <h2>Liste Préference</h2>
+    
+      <div
+        cdkDropList
+        id="preference"
+        #doneList="cdkDropList"
+        [cdkDropListData]="done"
+        [cdkDropListConnectedTo]="[todoList]"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        @for (item of done; track item.nom) {
+          <div class="example-box" cdkDrag [attr.data-id]="item._id">
+            <p>nom : {{item.personne_id.nom}}</p>
+            <p>prenom : {{item.personne_id.prenom}}</p>
+            <p>sexe : {{item.personne_id.sexe_id.nom}}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+  </div>
+    

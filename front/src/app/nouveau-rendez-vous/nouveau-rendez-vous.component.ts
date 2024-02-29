@@ -163,7 +163,7 @@ export class NouveauRendezVousComponent implements OnInit{
   }
   setServices(){
     this.loadingService = true;
-    serv.getAllService((data:any)=>{
+    serviceService.getAllActive((data:any)=>{
       this.services = data;
       this.recherche();
       this.loadingService = false;

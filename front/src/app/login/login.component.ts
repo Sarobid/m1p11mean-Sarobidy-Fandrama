@@ -30,7 +30,7 @@ export class LoginComponent {
         this.router.navigate(['/manager']);
       }else if(data.utilisateur.role_id.role==="EMPLOYE"){
         this.router.navigate(['/personnel']);
-      }else{
+      }else if(data.utilisateur.role_id.role==="CLIENT"){
         this.router.navigate(['/client']);
       }
     },(err:any)=>{

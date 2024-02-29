@@ -24,7 +24,7 @@
                             </div>
                             <!--Date-->
                             <div class="col-md-6">
-                                <label for="yourEmail" class="form-label">Date debut</label>
+                                <label for="yourEmail" class="form-label">Date</label>
                                 <div class="input-group">
                                     <input type="date" name="date" [(ngModel)]="horaire.date"
                                         (input)="effacerErreur('date')" class="form-control" id="date">
@@ -35,20 +35,6 @@
                                     </div>
                                 </div>
                                 <div class="text-danger" *ngIf="erreurs && erreurs['date']">{{erreurs['date']}}
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="yourEmail" class="form-label">Date fin</label>
-                                <div class="input-group">
-                                    <input type="date" name="date" [(ngModel)]="horaire.date_fin"
-                                        (input)="effacerErreur('date_fin')" class="form-control" id="date_fin">
-                                    <div class="input-group-append" *ngIf="erreurs && erreurs['date_fin']">
-                                        <span class="input-group-text">
-                                            <i class="bi bi-exclamation-triangle-fill text-danger"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="text-danger" *ngIf="erreurs && erreurs['date_fin']">{{erreurs['date_fin']}}
                                 </div>
                             </div>
                             <!--heure debut-->

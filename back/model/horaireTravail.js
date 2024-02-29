@@ -13,21 +13,7 @@ const horaireSchema = new Schema({
     },
     date : {
         type : Date,
-        required : [true,"Le date debut est requise"],
-    },
-    date_fin : {
-        type : Date,
-        required : [true,"Le date Fin est requise"],
-        validate:{
-            validator:function(value){
-                let is =  true;
-                if(value < this.date){
-                    is = false;
-                }
-                return is;
-            },
-            message:"Date fin invalide"
-        }
+        required : [true,"Le date est requise"],
     },
     heure_debut: {
         type : String,
