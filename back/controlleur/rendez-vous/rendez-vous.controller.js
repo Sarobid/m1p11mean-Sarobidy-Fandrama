@@ -1,14 +1,28 @@
-var horaireServ = require("./horaireTravail.service");
+var rendServ = require("./rendez-vous.service");
 var serv = require("./../../service/errorService");
 var authServ = require("./../auth/auth.service");
 var roleServ = require("./../role/role.service");
-var roles = [roleServ.nameRoleEmp];
-module.exports = function (app) {
 
-    app.get("/horaire/dispo/:date/:service", (req, res) => {
+module.exports = function (app) {
+    app.get("/rendez-vous/annuler/:rendez",(req,res)=>{
+        authServ.chekAutorisation([roleServ.nameRoleClient,roleServ.nameRoleEmp,roleServ.nameRoleManager], req, res)
+            .then(util => {
+                rendServ.annulerRendezVous(req.params.rendez,util)
+                    .then(data => {
+                        res.json(data);
+                    }).catch(err => {
+                        res.status(err.status || 400);
+                        serv.analyseError(err).then(error => { res.send(error) })
+                    });
+            }).catch(err => {
+                res.status(err.status || 400);
+                serv.analyseError(err).then(error => { res.send(error) })
+            });
+    })
+    app.post("/rendez-vous/:date/:paye", (req, res) => {
         authServ.chekAutorisation([roleServ.nameRoleClient], req, res)
             .then(util => {
-                horaireServ.getEmployeDisponible(req.params.date, req.params.service,util)
+                rendServ.nouveauRendezVous(req.body,req.params.paye,req.params.date,util)
                     .then(data => {
                         res.json(data);
                     }).catch(err => {
@@ -20,42 +34,10 @@ module.exports = function (app) {
                 serv.analyseError(err).then(error => { res.send(error) })
             });
     })
-
-    app.get("/horaire/duree", (req, res) => {
-        authServ.chekAutorisation([roleServ.nameRoleManager], req, res)
+    app.post("/rendez-vous/employe", (req, res) => {
+        authServ.chekAutorisation([roleServ.nameRoleClient], req, res)
             .then(util => {
-                horaireServ.getMoyenneDureeUtilisateur()
-                    .then(data => {
-                        res.json(data);
-                    }).catch(err => {
-                        res.status(err.status || 400);
-                        serv.analyseError(err).then(error => { res.send(error) })
-                    });
-            }).catch(err => {
-                res.status(err.status || 400);
-                serv.analyseError(err).then(error => { res.send(error) })
-            });
-    });
-
-    app.post("/horaire", (req, res) => {
-        authServ.chekAutorisation(roles, req, res)
-            .then(util => {
-                horaireServ.insertion(req.body, util)
-                    .then(data => {
-                        res.json(data);
-                    }).catch(err => {
-                        res.status(err.status || 400);
-                        serv.analyseError(err).then(error => { res.send(error) })
-                    });
-            }).catch(err => {
-                res.status(err.status || 400);
-                serv.analyseError(err).then(error => { res.send(error) })
-            });
-    });
-    app.get("/horaires", (req, res) => {
-        authServ.chekAutorisation(roles, req, res)
-            .then(util => {
-                horaireServ.getAllByUtilisateur(util)
+                rendServ.rendezVousEmploye(req.body.employe_id)
                     .then(data => {
                         res.json(data);
                     }).catch(err => {
@@ -67,10 +49,10 @@ module.exports = function (app) {
                 serv.analyseError(err).then(error => { res.send(error) })
             });
     })
-    app.post("/horaire/update/:id", (req, res) => {
-        authServ.chekAutorisation(roles, req, res)
+    app.post("/rendez-vous/employeTache", (req, res) => {
+        authServ.chekAutorisation([roleServ.nameRoleClient], req, res)
             .then(util => {
-                horaireServ.update(req.body.heure_debut, req.body.heure_fin, req.body.date, req.body.date_fin, req.params.id)
+                rendServ.tacheEffectuerEmploye(req.body.employe_id)
                     .then(data => {
                         res.json(data);
                     }).catch(err => {
@@ -81,5 +63,5 @@ module.exports = function (app) {
                 res.status(err.status || 400);
                 serv.analyseError(err).then(error => { res.send(error) })
             });
-    });
+    })
 }

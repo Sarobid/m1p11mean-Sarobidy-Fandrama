@@ -1,27 +1,11 @@
-var serviceService = {
-    getAll : (setData)=>{
-        fetch(url() + "/service/getAll", {
+var rendServ = {
+    annulerRendezVous : (id,response,afficheError)=>{
+        fetch(url() + "/rendez-vous/annuler/"+id, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'authorization': `Bearer ${authServ.getToken()}`
             }
-        }).then(res => res.json()) 
-        .then(data => {
-            setData(data);
-        })
-        .catch(error => {
-            alert(error); 
-        });
-    },
-    nouveauService : (data,response,afficheError)=>{
-        fetch(url() + "/service/insert", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'authorization': `Bearer ${authServ.getToken()}`
-            },
-            body:JSON.stringify(data)
         }).then(res => {
             if(res.ok){
                 res.json().then(data => {
@@ -34,14 +18,14 @@ var serviceService = {
             }
         })
     },
-    update : (data,response,afficheError)=>{
-        fetch(url() + "/service/update", {
+    nouveauRendezVous : (paye,date,employe,response,afficheError)=>{
+        fetch(url() + "/rendez-vous/"+date+"/"+paye, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'authorization': `Bearer ${authServ.getToken()}`
             },
-            body:JSON.stringify(data)
+            body:JSON.stringify(employe)
         }).then(res => {
             if(res.ok){
                 res.json().then(data => {
@@ -54,59 +38,64 @@ var serviceService = {
             }
         })
     },
-    delete : (data,response,afficheError)=>{
-        fetch(url() + "/service/delete", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'authorization': `Bearer ${authServ.getToken()}`
-            },
-            body:JSON.stringify(data)
-        }).then(res => {
-            if(res.ok){
-                res.json().then(data => {
-                    response(data);
-                })
-            }else{
-                res.json().then(data => {
-                    afficheError(data);
-                })
-            }
-        })
-    },
-    active : (data,response,afficheError)=>{
-        fetch(url() + "/service/active", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'authorization': `Bearer ${authServ.getToken()}`
-            },
-            body:JSON.stringify(data)
-        }).then(res => {
-            if(res.ok){
-                res.json().then(data => {
-                    response(data);
-                })
-            }else{
-                res.json().then(data => {
-                    afficheError(data);
-                })
-            }
-        })
-    },
-    getAllActive : (setData)=>{
-        fetch(url() + "/service/getAllActive", {
+    getHeureEmployeDisp : (date,service_id,response,afficheError)=>{
+        fetch(url() + "/horaire/dispo/"+date+"/"+service_id, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'authorization': `Bearer ${authServ.getToken()}`
             }
-        }).then(res => res.json()) 
-        .then(data => {
-            setData(data);
+        }).then(res => {
+            if(res.ok){
+                res.json().then(data => {
+                    response(data);
+                })
+            }else{
+                res.json().then(data => {
+                    afficheError(data);
+                })
+            }
         })
-        .catch(error => {
-            alert(error); 
-        });
     },
+    RendezVousEmploye : (data,response,afficheError)=>{
+        fetch(url() + "/rendez-vous/employe", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${authServ.getToken()}`
+            },
+            body:JSON.stringify(data)
+        }).then(res => {
+            if(res.ok){
+                res.json().then(data => {
+                    response(data);
+                })
+            }else{
+                res.json().then(data => {
+                    afficheError(data);
+                })
+            }
+        })
+    },
+    TacheEmploye : (data,response,afficheError)=>{
+        fetch(url() + "/rendez-vous/employeTache", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${authServ.getToken()}`
+            },
+            body:JSON.stringify(data)
+        }).then(res => {
+            if(res.ok){
+                res.json().then(data => {
+                    response(data);
+                })
+            }else{
+                res.json().then(data => {
+                    afficheError(data);
+                })
+            }
+        })
+    },
+
 }

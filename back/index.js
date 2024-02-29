@@ -22,6 +22,8 @@ require("./controlleur/service/service.controller")(app);
 require("./controlleur/preferenceService/prefServ.controller")(app);
 require("./controlleur/preferenceEmploye/prefEmp.controller")(app);
 
+require("./controlleur/service/service.controller")(app);
+require("./controlleur/rendez-vous/rendez-vous.controller")(app);
 const ws = require('ws');
 const httpServ = http.createServer(app);
 const wss = new ws.Server({ server:httpServ,handshakeTimeout: 20000 });

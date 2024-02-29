@@ -55,7 +55,8 @@
               "src/service/socket/socket.js",
               "src/service/auth.service.js",
               "src/common.js",
-              "src/service/service.js"
+              "src/service/service.js",
+              "src/service/rendez-vous.service.js"
             ],
             "server": "src/main.server.ts",
             "prerender": true,

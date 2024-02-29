@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AjoutEmployeComponent } from './ajout-employe/ajout-employe.component';
 // import { ServiceComponent } from './service/service.component';
+import { NouveauRendezVousComponent } from './nouveau-rendez-vous/nouveau-rendez-vous.component';
 import { ListeServiceComponent } from './liste-service/liste-service.component';
 import { PreferenceServiceComponent } from './preference-service/preference-service.component';
 import { AjoutServiceComponent } from './ajout-service/ajout-service.component';
@@ -17,18 +18,22 @@ import { PageNotFoundComponent } from "./page-not-found/page-not-found.component
 import { StatistiqueHoraireComponent } from './statistique-horaire/statistique-horaire.component';
 import { ValidMotDePasseComponent } from "./valid-mot-de-passe/valid-mot-de-passe.component";
 import { PreferenceEmployeComponent } from './preference-employe/preference-employe.component';
-
+import { RdvEmployeComponent } from './rdv-employe/rdv-employe.component';
+import { TacheEmpEffectuerComponent } from './tache-emp-effectuer/tache-emp-effectuer.component';
 export const routes: Routes = [
-    { path: 'personnel', component: EmployeComponent ,
-    children:[
-        {path:'nouveau-horaire',component:AjoutHoraireComponent},
-        {path:'liste-horaire',component:ListeHoraireComponent},
-    ]},
     { path: 'client', component: ClientComponent ,
     children:[
         {path:'preference-service',component:PreferenceServiceComponent},
         {path:'preference-employe',component:PreferenceEmployeComponent},
+        {path:"nouveau",component:NouveauRendezVousComponent}
         // {path:'liste-horaire',component:ListeHoraireComponent},
+    ]},
+    { path: 'personnel', component: EmployeComponent ,
+    children:[
+        {path:'nouveau-horaire',component:AjoutHoraireComponent},
+        {path:'liste-horaire',component:ListeHoraireComponent},
+        {path:'rdv-employe',component:RdvEmployeComponent},
+        {path:'tacheEmp',component:TacheEmpEffectuerComponent}
     ]},
     { path: 'manager', component: ManagerComponent ,
     children:[
