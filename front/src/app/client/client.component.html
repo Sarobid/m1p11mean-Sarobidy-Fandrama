@@ -1,45 +1,50 @@
 <div *ngIf="errorService.isErreur">
-    <app-erreur [value]="errorService.erreur"/>
+    <app-erreur [value]="errorService.erreur" />
 </div>
 <div *ngIf="!errorService.isErreur">
     <app-header-utilisateur></app-header-utilisateur>
-<aside id="sidebar" class="sidebar">
-    <ul class="sidebar-nav" id="sidebar-nav">
-        <li class="nav-item">
-            <a class="nav-link " data-bs-target="#rendez-vous-nav" data-bs-toggle="collapse">
-                <i class="bi bi-menu-button-wide"></i><span>Gestion Rendez Vous</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="rendez-vous-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
-                <li>
-                    <a routerLink="nouveau">
-                        <i class="bi bi-circle"></i><span>Nouveau</span>
-                    </a>
-                    <a routerLink="historique">
-                        <i class="bi bi-circle"></i><span>Historique</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link " data-bs-target="#preference" data-bs-toggle="collapse">
-                <i class="bi bi-menu-button-wide"></i><span>Préference</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="preference" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
-                <li>
-                    <a routerLink="preference-service">
-                        <i class="bi bi-circle"></i><span>Préference service</span>
-                    </a>
-                </li>
-                <li>
-                    <a routerLink="preference-employe">
-                        <i class="bi bi-circle"></i><span>Préference employé</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-    </ul>
-</aside>
-<!--ROUTER LINK -->
-<router-outlet></router-outlet>
-<!--FIN ROUTER LINK --><!--ROUTER LINK -->
+    <aside id="sidebar" class="sidebar">
+        <ul class="sidebar-nav" id="sidebar-nav">
+            <li class="nav-item">
+                <a class="nav-link " data-bs-target="#rendez-vous-nav" data-bs-toggle="collapse">
+                    <i class="bi bi-menu-button-wide"></i><span>Gestion Rendez Vous</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="rendez-vous-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a routerLink="nouveau">
+                            <i class="bi bi-circle"></i><span>Nouveau</span>
+                        </a>
+                        <a routerLink="historique">
+                            <i class="bi bi-circle"></i><span>Historique</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " data-bs-target="#preference" data-bs-toggle="collapse">
+                    <i class="bi bi-menu-button-wide"></i><span>Préference</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="preference" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a routerLink="preference-service">
+                            <i class="bi bi-circle"></i><span>Préference service</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="preference-employe">
+                            <i class="bi bi-circle"></i><span>Préference employé</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </aside>
+    <!--ROUTER LINK -->
+    <main>
+        <router-outlet></router-outlet>
+        <!--FIN ROUTER LINK --><!--ROUTER LINK -->
+        <app-foote></app-foote>
+    </main>
 </div>

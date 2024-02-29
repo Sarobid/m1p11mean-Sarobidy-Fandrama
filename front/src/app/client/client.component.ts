@@ -3,12 +3,13 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { ErrorService } from '../../service/service-ts/Error-service';
 import { ErreurComponent } from '../erreur/erreur.component';
+import { FooteComponent } from '../foote/foote.component';
 import { HeaderUtilisateurComponent } from '../header-utilisateur/header-utilisateur.component';
 
 @Component({
   selector: 'app-client',
   standalone: true,
-  imports: [RouterOutlet,RouterLink,NgIf,ErreurComponent,HeaderUtilisateurComponent],
+  imports: [RouterOutlet,RouterLink,NgIf,ErreurComponent,HeaderUtilisateurComponent,FooteComponent],
   templateUrl: './client.component.html',
   styleUrl: './client.component.css'
 })
