@@ -9,6 +9,7 @@ import { AjoutHoraireComponent } from './ajout-horaire/ajout-horaire.component';
 import { EmployeComponent } from './employe/employe.component';
 import { ClientComponent } from './client/client.component';
 import { HeadPageLibreComponent } from "./head-page-libre/head-page-libre.component";
+import { HistoriqueRendezVousComponent } from './historique-rendez-vous/historique-rendez-vous.component';
 import { InscriptionComponent } from "./inscription/inscription.component";
 import { ListeEmployeComponent } from './liste-employe/liste-employe.component';
 import { ListeHoraireComponent } from './liste-horaire/liste-horaire.component';
@@ -25,8 +26,8 @@ export const routes: Routes = [
     children:[
         {path:'preference-service',component:PreferenceServiceComponent},
         {path:'preference-employe',component:PreferenceEmployeComponent},
-        {path:"nouveau",component:NouveauRendezVousComponent}
-        // {path:'liste-horaire',component:ListeHoraireComponent},
+        {path:"nouveau",component:NouveauRendezVousComponent},
+        {path:"historique",component:HistoriqueRendezVousComponent}
     ]},
     { path: 'personnel', component: EmployeComponent ,
     children:[
