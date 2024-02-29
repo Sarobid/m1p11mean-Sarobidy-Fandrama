@@ -1,0 +1,39 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Nombre de réservation par jour</h1>
+    </div>
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <form class="row g-3" style="margin-top: 10px;">
+                    <div class="col-sm-2">
+                        <div class="form-floating">
+                            <input type="date" [(ngModel)]="data.dateDebut" name="dateDedut" (input)="recherche()" class="form-control" id="dateDedut"
+                                placeholder="dateDedut">
+                            <label for="nom">Date minimum</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-floating">
+                            <input type="date" [(ngModel)]="data.dateFin" name="dateFin" (input)="recherche()" class="form-control" id="dateFin"
+                                placeholder="dateFin">
+                            <label for="nom">Date maximum </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-8">
+                <div class="card" style="margin-top: 10px;">
+                  <div class="card-body">
+                    <div *ngIf="loadingJour">
+                        <div style="text-align: center;">
+                            <app-loading></app-loading>
+                        </div>
+                    </div>
+                    <canvas id="jourChart" style="max-height: 500px;"></canvas>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </section>
+</main>

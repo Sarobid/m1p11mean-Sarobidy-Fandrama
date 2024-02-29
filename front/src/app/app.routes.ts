@@ -12,6 +12,8 @@ import { LoginComponent } from './login/login.component';
 import { ManagerComponent } from "./manager/manager.component";
 import { NouveauRendezVousComponent } from './nouveau-rendez-vous/nouveau-rendez-vous.component';
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
+import { ReservartionParMoisComponent } from './reservartion-par-mois/reservartion-par-mois.component';
+import { ReservationParJourComponent } from './reservation-par-jour/reservation-par-jour.component';
 import { StatistiqueHoraireComponent } from './statistique-horaire/statistique-horaire.component';
 import { ValidMotDePasseComponent } from "./valid-mot-de-passe/valid-mot-de-passe.component";
 
@@ -19,7 +21,7 @@ export const routes: Routes = [
     { path: 'client', component: ClientComponent ,
     children:[
         {path:"nouveau",component:NouveauRendezVousComponent},
-        {path:"historique",component:HistoriqueRendezVousComponent}
+        {path:"historique",component:HistoriqueRendezVousComponent},
     ]},
     { path: 'personnel', component: EmployeComponent ,
     children:[
@@ -30,7 +32,9 @@ export const routes: Routes = [
     children:[
         { path: 'nouveau-personnel', component: AjoutEmployeComponent },
         { path: 'liste-personnel',component:ListeEmployeComponent},
-        { path: 'temps-moyen-travail',component:StatistiqueHoraireComponent}
+        { path: 'temps-moyen-travail',component:StatistiqueHoraireComponent},
+        {path:"reservation-jour",component:ReservationParJourComponent},
+        {path:"reservation-mois",component:ReservartionParMoisComponent}
     ]},
     {
         path: '', component: HeadPageLibreComponent,

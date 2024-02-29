@@ -1,4 +1,65 @@
 var rendServ = {
+    afficheChart : (labels,data,title,nameCanvas)=>{
+        return new Chart(document.querySelector(nameCanvas), {
+            type: 'bar',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: title,
+                data: data,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          });
+    },
+    getReservationParMois : (data,response,afficheError)=>{
+        fetch(url() + "/reservation/mois", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${authServ.getToken()}`
+            },
+            body:JSON.stringify(data)
+        }).then(res => {
+            if(res.ok){
+                res.json().then(data => {
+                    response(data);
+                })
+            }else{
+                res.json().then(data => {
+                    afficheError(data);
+                })
+            }
+        })
+    },
+    getReservationParJour : (data,response,afficheError)=>{
+        fetch(url() + "/reservation/jour", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${authServ.getToken()}`
+            },
+            body:JSON.stringify(data)
+        }).then(res => {
+            if(res.ok){
+                res.json().then(data => {
+                    response(data);
+                })
+            }else{
+                res.json().then(data => {
+                    afficheError(data);
+                })
+            }
+        })
+    },
     getHistoriqueRendezVous : (data,response,afficheError)=>{
         ///alert(JSON.stringify(data))
         fetch(url() + "/rendez-vous/historique", {

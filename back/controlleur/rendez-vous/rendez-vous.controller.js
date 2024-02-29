@@ -4,6 +4,38 @@ var authServ = require("./../auth/auth.service");
 var roleServ = require("./../role/role.service");
 
 module.exports = function (app) {
+    app.post("/reservation/mois",(req,res)=>{
+        authServ.chekAutorisation([roleServ.nameRoleManager], req, res)
+            .then(util => {
+                console.log(req.body)
+                rendServ.nombreReservationParMois(req.body.annee)
+                    .then(data => {
+                        res.json(data);
+                    }).catch(err => {
+                        res.status(err.status || 400);
+                        serv.analyseError(err).then(error => { res.send(error) })
+                    });
+            }).catch(err => {
+                res.status(err.status || 400);
+                serv.analyseError(err).then(error => { res.send(error) })
+            });
+    })
+    app.post("/reservation/jour",(req,res)=>{
+        authServ.chekAutorisation([roleServ.nameRoleManager], req, res)
+            .then(util => {
+                console.log(req.body)
+                rendServ.nombreReservationParJour(req.body.dateDebut,req.body.dateFin)
+                    .then(data => {
+                        res.json(data);
+                    }).catch(err => {
+                        res.status(err.status || 400);
+                        serv.analyseError(err).then(error => { res.send(error) })
+                    });
+            }).catch(err => {
+                res.status(err.status || 400);
+                serv.analyseError(err).then(error => { res.send(error) })
+            });
+    })
 
     app.post("/rendez-vous/historique",(req,res)=>{
         authServ.chekAutorisation([roleServ.nameRoleClient], req, res)
