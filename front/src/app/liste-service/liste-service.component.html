@@ -40,18 +40,18 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="form-floating">
-                                    <input type="time" [(ngModel)]="searh.dureeMin" name="dureeMin"
+                                    <input type="nomber" [(ngModel)]="searh.dureeMin" name="dureeMin"
                                         (input)="recherche()" class="form-control" id="dureeMin"
                                         placeholder="dureeMin">
-                                    <label for="floatingEmail">Duree min</label>
+                                    <label for="floatingEmail">Commission min</label>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-floating">
-                                    <input type="time" [(ngModel)]="searh.dureeMax" name="dureeMax"
+                                    <input type="number" [(ngModel)]="searh.dureeMax" name="dureeMax"
                                         (input)="recherche()" class="form-control" id="dureeMax"
                                         placeholder="dureeMax">
-                                    <label for="floatingEmail">Duree max</label>
+                                    <label for="floatingEmail">Commision max</label>
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -81,11 +81,11 @@
                                             (click)="afficheModal(h._id,h.nom,h.prix,h.duree,h.commission)">
                                             modifier
                                         </button>
-                                        <button *ngIf="!h.delete" type="button" class="btn btn-outline-primary btn-sm" (click)="supprimer(h._id)">
-                                            supprimer
+                                        <button *ngIf="!h.delete" type="button" style="color: crimson;" class="btn btn-outline-primary btn-sm" (click)="supprimer(h._id)">
+                                            Desactiver
                                         </button>
-                                        <button *ngIf="h.delete" type="button" class="btn btn-outline-primary btn-sm" (click)="activer(h._id)">
-                                            activer
+                                        <button *ngIf="h.delete" type="button" style="color: rgb(20, 220, 57);" class="btn btn-outline-primary btn-sm" (click)="activer(h._id)">
+                                            Activer
                                         </button></td>
                                 </tr>
                             </tbody>

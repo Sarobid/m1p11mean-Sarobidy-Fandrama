@@ -129,5 +129,4 @@ export class ListeHoraireComponent implements OnInit {
       this.loading = false;
     });
   }
-
 }

@@ -40,7 +40,7 @@ module.exports = function (app) {
     app.post("/utilisateur/employe",(req,res)=>{
         authServ.chekAutorisation([roleServ.nameRoleManager],req,res)
         .then(util=>{
-            utilisateurServ.nouveauUtilisateur(roleServ.nameRoleEmp,req.body.personne,req.body.email)
+            utilisateurServ.nouveauUtilisateur(roleServ.nameRoleEmp,req.body.personne,req.body.email,req.body.url)
             .then(data => {
                 res.json(data);
             }).catch(err => {
@@ -54,7 +54,7 @@ module.exports = function (app) {
     })
 
     app.post("/utilisateur/client",(req,res)=>{
-        utilisateurServ.nouveauUtilisateur(roleServ.nameRoleManager,req.body.personne,req.body.email,req.body.url)
+        utilisateurServ.nouveauUtilisateur(roleServ.nameRoleClient,req.body.personne,req.body.email,req.body.url)
         .then(data => {
             res.json(data);
         }).catch(err => {

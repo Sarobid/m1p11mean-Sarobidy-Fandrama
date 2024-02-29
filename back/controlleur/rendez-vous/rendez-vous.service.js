@@ -189,6 +189,18 @@ async function getListRendezVous(employe_id,client_id,service_id, dateDebut,date
             foreignField: "_id",
             as: "employe.personne"
         }).unwind("$employe.personne")
+        .lookup({
+            from: "utilisateurs",
+            localField: "client_id",
+            foreignField: "_id",
+            as: "client"
+        }).unwind("$client")
+        .lookup({
+            from: "personnes",
+            localField: "client.personne_id",
+            foreignField: "_id",
+            as: "client.personne"
+        }).unwind("$client.personne")
         .addFields({
             heureFin: {
                 $dateToString: {
@@ -356,22 +368,19 @@ async function getDernierRendezVous(utilisateur_id, date,type) {
 }
 exports.getDernierRendezVous = getDernierRendezVous;
 
-async function rendezVousEmploye(employe_id){
-    try {
-        let data = RendezVous.find({employe_id:employe_id,etat:1})
-        return data;
-    } catch (error){
-        throw error;
-    }
+async function validerTache(id){
+    const service = await RendezVous.findOne({_id:id});
+        if (!service) {
+            throw new Error('Aucun rendez-vous ne correspond');
+        }
+        service.etat = 1;
+        await service.save();
+        // if (!confirmeRdv) {
+        //     let er = new Error('erreur de validation');
+        //     er.name = "rdv";
+        //     throw er;
+        // }
+        // return confirmeRdv;
+        return {value:true}
 }
-exports.rendezVousEmploye = rendezVousEmploye
-
-async function tacheEffectuerEmploye(employe_id){
-    try {
-        let data = RendezVous.find({employe_id:employe_id,etat:2})
-        return data;
-    } catch (error){
-        throw error;
-    }
-}
-exports.tacheEffectuerEmploye = tacheEffectuerEmploye
+exports.validerTache = validerTache;

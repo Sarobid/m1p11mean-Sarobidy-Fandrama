@@ -55,7 +55,7 @@ async function createToken(utilisateur){
 
 function generateDateExpriration(){
     let date = new Date();
-    date.setMinutes(date.getMinutes() + 40);
+    date.setMinutes(date.getMinutes() + 720);
     return date;
 }
 async function generateTokenValue(utilisateur){

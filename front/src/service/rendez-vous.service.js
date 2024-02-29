@@ -159,8 +159,8 @@ var rendServ = {
             }
         })
     },
-    TacheEmploye : (data,response,afficheError)=>{
-        fetch(url() + "/rendez-vous/employeTache", {
+    TacheValide : (data,response,afficheError)=>{
+        fetch(url() + "/rendez-vous/TacheValide", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

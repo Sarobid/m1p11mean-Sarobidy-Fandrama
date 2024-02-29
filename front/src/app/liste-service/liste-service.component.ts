@@ -150,10 +150,10 @@ export class ListeServiceComponent {
       if(this.searh.prixMax !== '' && parseInt(this.searh.prixMax) < d ){
         is = false;
       }
-      if(this.searh.dureeMin !== '' && this.searh.dureeMin > h.duree ){
+      if(this.searh.dureeMin !== '' && this.searh.dureeMin > h.commission ){
         is = false;
       }
-      if(this.searh.dureeMax !== '' && this.searh.dureeMax < h.duree ){
+      if(this.searh.dureeMax !== '' && this.searh.dureeMax < h.commission ){
         is = false;
       }
       // h.date = d;

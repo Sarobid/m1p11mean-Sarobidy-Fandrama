@@ -1,1 +1,68 @@
-<p>tache-emp-effectuer works!</p>
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Listes des Taches éffectuer</h1>
+    </div>
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div *ngIf="loading">
+                    <div style="text-align: center;">
+                        <app-loading></app-loading>
+                    </div>
+                </div>
+                <form class="row g-3" style="margin-top: 10px;">
+                    <div class="col-sm-2">
+                        <div class="form-floating">
+                            <input type="date" [(ngModel)]="data.dateDebut" [(ngModel)]="data.dateFin" name="dateDedut"
+                                (input)="recherche()" class="form-control" id="dateDedut" placeholder="dateDedut">
+                            <label for="nom">Pour la date : </label>
+                        </div>
+                    </div>
+                </form>
+                <form class="row g-3" style="margin-top: 10px;">
+                    <div class="col-sm-2">
+                        <div class="form-floating">
+                            <h5>
+                                Total Commision : <span class="text-success">{{totalCommission}} Ar</span>
+                            </h5>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="row g-3" *ngIf="listeRendezVous.length > 0" style="margin-top: 2px;">
+                    <div class="col-4" *ngFor="let service of listeRendezVous">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{service.service.nom}} <span> | le {{service.dateFormat}}</span>
+                                </h5>
+                                <h6 class="text-success"><i class="bi bi-cash-stack"></i>
+                                    {{service.prixFormat}}
+                                    Ar</h6>
+                                <p class="small text-muted"><strong>duree :
+                                    </strong>{{service.dureeFormat}}</p>
+                                <p class="small text-muted"><strong>Heure debut : </strong><span
+                                        class="text-success small pt-1 fw-bold">{{service.heure}}</span>
+                                </p>
+                                <p class="small text-muted"><strong>Heure fin : </strong><span
+                                        class="text-success small pt-1 fw-bold">{{service.heureFin}}</span>
+                                </p>
+
+                                <p class="small text-muted"><strong>Client : </strong><span
+                                        class="text-success small pt-1 fw-bold">{{service.client.personne.nom}}
+                                        <span>{{service.client.personne.prenom}}</span></span>
+                                </p>
+                                <p class="small text-muted"><strong>Taux de Commission : </strong><span
+                                        class="text-success small pt-1 fw-bold">{{service.commission}} %</span>
+                                </p>
+                                <p class="small text-muted"><strong>Commission : </strong><span
+                                        class="text-success small pt-1 fw-bold">{{calculCommission(service.commission,service.prix)}}
+                                        Ar</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
