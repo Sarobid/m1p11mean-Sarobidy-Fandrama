@@ -12,7 +12,7 @@ import { HeaderUtilisateurComponent } from '../header-utilisateur/header-utilisa
   templateUrl: './employe.component.html',
   styleUrl: './employe.component.css'
 })
-export class EmployeComponent {
+export class EmployeComponent{
   constructor(public errorService: ErrorService) {
     this.verificationAuthorization();
   }
