@@ -31,10 +31,10 @@ export class AjoutServiceComponent {
   onSubmit() {
     this.socketService.signale("new");
     serviceService.nouveauService(this.service,(data:any)=>{
-      alert(JSON.stringify(data));
+      // alert(JSON.stringify(data));
     },(err:any)=>{
       this.erreurs = err.erreur;
-      alert(JSON.stringify(this.erreurs))
+      // alert(JSON.stringify(this.erreurs))
     })
   }
   effacerErreur(champ: string) {

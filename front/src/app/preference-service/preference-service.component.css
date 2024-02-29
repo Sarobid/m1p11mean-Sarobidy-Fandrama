@@ -1,3 +1,5 @@
+@import url("@angular/material/prebuilt-themes/indigo-pink.css");
+
 .top-content {
   margin-top: 6rem;
 }

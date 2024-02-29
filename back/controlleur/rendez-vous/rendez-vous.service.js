@@ -3,6 +3,58 @@ var serv = require("./../service/service.service");
 var fonctServ = require("./../../service/service");
 const { getListeEmploye } = require("../utilisateur/employe/employe.service");
 
+async function nombreReservationParMois(annee){
+    try {
+        let match = {};
+        if(annee !== null && annee !==''){
+            match["annee"] = ""+annee+"";
+        }
+        console.log(match)
+        let data = await RendezVous.aggregate([])
+        .addFields({
+            annee: {
+                $dateToString: {
+                    format: "%Y",
+                    date: "$date"
+                }
+            }
+        }).match(match)
+        .group({
+            _id:{$month:"$date"},
+            count:{$sum:1}
+        })
+        console.log(data)
+        return data;
+    } catch (error) {
+        throw error;
+    }    
+}
+exports.nombreReservationParMois = nombreReservationParMois;
+
+async function nombreReservationParJour(dateDebut,dateFin){
+    try {
+        let match = {};
+        if(dateDebut !== null && dateDebut !==''){
+            match["_id.date"] = {$gte : new Date(dateDebut)};
+        }
+        if(dateFin !== null && dateFin !==''){
+            match["_id.date2"] = {$lte : new Date(dateFin)};
+        }
+        console.log(match)
+        let data = await RendezVous.aggregate([{
+            $group: {
+                _id: {date : "$date",date2:"$date"}, 
+                count: { $sum: 1 }
+            }
+        }]).match(match).sort({_id:{date:1}});
+        console.log(data)
+        return data;
+    } catch (error) {
+        throw error;
+    }    
+}
+exports.nombreReservationParJour = nombreReservationParJour;
+
 async function deleteRendezVous(idRendezVous){
     try {
         let data = await RendezVous.findOne({_id : idRendezVous});
@@ -80,7 +132,7 @@ async function getListRendezVous(employe_id,client_id,service_id, dateDebut,date
             match["date"] = {$gte : new Date(dateDebut)};
         }
         if(dateFin !== null && dateFin !==''){
-            match["date"] = {$lte : new Date(dateFin)};
+            match["date2"] = {$lte : new Date(dateFin)};
         }
         if(heureMin !== null && heureMin !== ''){
             //onsole.log("heureMin = "+heureMin)
@@ -114,6 +166,11 @@ async function getListRendezVous(employe_id,client_id,service_id, dateDebut,date
                 heureDuree: { $add: ["$heureAsDate", "$duree"] }
             }
         },
+        {
+            $addFields: {
+                date2: "$date"
+            }
+        }
         ]).lookup({
             from: "utilisateurs",
             localField: "employe_id",
@@ -183,7 +240,7 @@ async function getListRendezVous(employe_id,client_id,service_id, dateDebut,date
             employe:{
                 mdp:0
             }
-        }).sort({date:-1,heureDebutEnMill:1})
+        }).sort({date:-1,heureDebutEnMill:-1})
         //console.log(data);
         return data;
     } catch (error) {
@@ -299,22 +356,18 @@ async function getDernierRendezVous(utilisateur_id, date,type) {
 }
 exports.getDernierRendezVous = getDernierRendezVous;
 
-async function rendezVousEmploye(employe_id){
-    try {
-        let data = RendezVous.find({employe_id:employe_id,etat:0})
-        return data;
-    } catch (error){
-        throw error;
-    }
+async function validerTache(id){
+    const service = await RendezVous.findOne({_id:id});
+        if (!service) {
+            throw new Error('Aucun rendez-vous ne correspond');
+        }
+        service.etat = 1;
+        await service.save();
+        // if (!confirmeRdv) {
+        //     let er = new Error('erreur de validation');
+        //     er.name = "rdv";
+        //     throw er;
+        // }
+        // return confirmeRdv;
 }
-exports.rendezVousEmploye = rendezVousEmploye
-
-async function tacheEffectuerEmploye(employe_id){
-    try {
-        let data = RendezVous.find({employe_id:employe_id,etat:1})
-        return data;
-    } catch (error){
-        throw error;
-    }
-}
-exports.tacheEffectuerEmploye = tacheEffectuerEmploye
+exports.validerTache = validerTache;

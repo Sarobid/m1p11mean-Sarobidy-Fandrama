@@ -1,1 +1,85 @@
-<p>rdv-employe works!</p>
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Listes des Rendez-vous</h1>
+    </div>
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div *ngIf="loading">
+                    <div style="text-align: center;">
+                        <app-loading></app-loading>
+                    </div>
+                </div>
+                <form class="row g-3" style="margin-top: 10px;">
+                    <div class="col-sm-2">
+                        <div class="form-floating">
+                            <input type="date" [(ngModel)]="data.dateDebut" name="dateDedut" (input)="recherche()" class="form-control" id="dateDedut"
+                                placeholder="dateDedut">
+                            <label for="nom">Date minimum</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-floating">
+                            <input type="date" [(ngModel)]="data.dateFin" name="dateFin" (input)="recherche()" class="form-control" id="dateFin"
+                                placeholder="dateFin">
+                            <label for="nom">Date maximum</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-floating">
+                            <input type="time" [(ngModel)]="data.heureMin" name="heureMin" (input)="recherche()" class="form-control" id="heureMin"
+                                placeholder="heureMin">
+                            <label for="nom">Heure debut minimum</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-floating">
+                            <input type="time" [(ngModel)]="data.heureMax" name="heureMax" (input)="recherche()" class="form-control" id="heureMax"
+                                placeholder="heureMax">
+                            <label for="nom">Heure debut maximum</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-floating">
+                            <input type="text" [(ngModel)]="service" name="service" (input)="filtrerService()" class="form-control" id="service"
+                                placeholder="service">
+                            <label for="nom">Service</label>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item" *ngIf="servicesFilter.length > 0" (click)="setService_Id('','')"><span style="color: red;">**Cliquer le service</span></li>
+                            <li class="list-group-item" *ngFor="let s of servicesFilter" (click)="setService_Id(s._id,s.nom)">{{s.nom}}</li>
+                            
+                          </ul>
+                    </div>
+                </form>
+                
+                <div class="row g-3" *ngIf="listeRendezVous.length > 0" style="margin-top: 2px;">
+                    <div class="col-4" *ngFor="let service of listeRendezVous">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{service.service.nom}} <span> | le {{service.dateFormat}}</span></h5>
+                                <h6 class="text-success"><i class="bi bi-cash-stack"></i>
+                                    {{service.prixFormat}}
+                                    Ar</h6>
+                                <p class="small text-muted"><strong>duree :
+                                    </strong>{{service.dureeFormat}}</p>
+                                <p class="small text-muted"><strong>Heure debut : </strong><span
+                                        class="text-success small pt-1 fw-bold">{{service.heure}}</span>
+                                </p>
+                                <p class="small text-muted"><strong>Heure fin : </strong><span
+                                    class="text-success small pt-1 fw-bold">{{service.heureFin}}</span>
+                                </p>
+                                <p class="small text-muted"><strong>Employe : </strong><span
+                                        class="text-success small pt-1 fw-bold">{{service.employe.personne.nom}} <span>{{service.employe.personne.prenom}}</span></span>
+                                </p>
+                                <button type="button" style="color: rgb(20, 220, 57);" class="btn btn-outline-primary btn-sm" (click)="validerRdv(service._id)">
+                                    Finir
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

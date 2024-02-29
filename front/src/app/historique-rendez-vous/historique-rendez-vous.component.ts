@@ -52,7 +52,7 @@ export class HistoriqueRendezVousComponent implements OnInit{
     this.recherche();
    }
    setListeService(){
-    serv.getAllService((data:any)=>{
+    serviceService.getAllActive((data:any)=>{
       this.services = data;
     },(error:any)=>{
       if(error.status === 401 || error.status === 403){

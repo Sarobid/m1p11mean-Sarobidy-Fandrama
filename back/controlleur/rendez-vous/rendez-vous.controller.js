@@ -4,6 +4,38 @@ var authServ = require("./../auth/auth.service");
 var roleServ = require("./../role/role.service");
 
 module.exports = function (app) {
+    app.post("/reservation/mois",(req,res)=>{
+        authServ.chekAutorisation([roleServ.nameRoleManager], req, res)
+            .then(util => {
+                console.log(req.body)
+                rendServ.nombreReservationParMois(req.body.annee)
+                    .then(data => {
+                        res.json(data);
+                    }).catch(err => {
+                        res.status(err.status || 400);
+                        serv.analyseError(err).then(error => { res.send(error) })
+                    });
+            }).catch(err => {
+                res.status(err.status || 400);
+                serv.analyseError(err).then(error => { res.send(error) })
+            });
+    })
+    app.post("/reservation/jour",(req,res)=>{
+        authServ.chekAutorisation([roleServ.nameRoleManager], req, res)
+            .then(util => {
+                console.log(req.body)
+                rendServ.nombreReservationParJour(req.body.dateDebut,req.body.dateFin)
+                    .then(data => {
+                        res.json(data);
+                    }).catch(err => {
+                        res.status(err.status || 400);
+                        serv.analyseError(err).then(error => { res.send(error) })
+                    });
+            }).catch(err => {
+                res.status(err.status || 400);
+                serv.analyseError(err).then(error => { res.send(error) })
+            });
+    })
 
     app.post("/rendez-vous/historique",(req,res)=>{
         authServ.chekAutorisation([roleServ.nameRoleClient], req, res)
@@ -53,9 +85,9 @@ module.exports = function (app) {
             });
     })
     app.post("/rendez-vous/employe", (req, res) => {
-        authServ.chekAutorisation([roleServ.nameRoleClient], req, res)
+        authServ.chekAutorisation([roleServ.nameRoleEmp], req, res)
             .then(util => {
-                rendServ.rendezVousEmploye(req.body.employe_id)
+                rendServ.getListRendezVous(util._id,req.body.client_id,req.body.service_id, req.body.dateDebut,req.body.dateFin,req.body.heureMin,req.body.heureMax,req.body.etat)
                     .then(data => {
                         res.json(data);
                     }).catch(err => {
@@ -67,12 +99,12 @@ module.exports = function (app) {
                 serv.analyseError(err).then(error => { res.send(error) })
             });
     })
-    app.post("/rendez-vous/employeTache", (req, res) => {
-        authServ.chekAutorisation([roleServ.nameRoleClient], req, res)
+    app.post("/rendez-vous/TacheValide", (req, res) => {
+        authServ.chekAutorisation([roleServ.nameRoleEmp], req, res)
             .then(util => {
-                rendServ.tacheEffectuerEmploye(req.body.employe_id)
+                rendServ.validerTache(req.body._id)
                     .then(data => {
-                        res.json(data);
+                        // res.json(data);
                     }).catch(err => {
                         res.status(err.status || 400);
                         serv.analyseError(err).then(error => { res.send(error) })

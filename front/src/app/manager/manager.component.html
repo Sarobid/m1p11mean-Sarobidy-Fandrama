@@ -2,14 +2,7 @@
     <app-erreur [value]="errorService.erreur" />
 </div>
 <div *ngIf="!errorService.isErreur">
-    <header id="header" class="header fixed-top d-flex align-items-center">
-        <div class="d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-center">
-                <app-title-app></app-title-app>
-            </a>
-            <i class="bi bi-list toggle-sidebar-btn"></i>
-        </div>
-    </header>
+    <app-header-utilisateur></app-header-utilisateur>
     <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
             <!---Statistique-->
@@ -22,6 +15,17 @@
                     <li>
                         <a routerLink="temps-moyen-travail">
                             <i class="bi bi-circle"></i><span>Temps de travail</span>
+                        </a>
+                    </li>
+                    <!--reservation par jour-->
+                    <li>
+                        <a routerLink="reservation-jour">
+                            <i class="bi bi-circle"></i><span>Reservation par jour</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="reservation-mois">
+                            <i class="bi bi-circle"></i><span>Reservation par mois</span>
                         </a>
                     </li>
                 </ul>

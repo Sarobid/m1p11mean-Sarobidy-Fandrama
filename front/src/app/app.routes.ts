@@ -16,6 +16,8 @@ import { ListeHoraireComponent } from './liste-horaire/liste-horaire.component';
 import { LoginComponent } from './login/login.component';
 import { ManagerComponent } from "./manager/manager.component";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
+import { ReservartionParMoisComponent } from './reservartion-par-mois/reservartion-par-mois.component';
+import { ReservationParJourComponent } from './reservation-par-jour/reservation-par-jour.component';
 import { StatistiqueHoraireComponent } from './statistique-horaire/statistique-horaire.component';
 import { ValidMotDePasseComponent } from "./valid-mot-de-passe/valid-mot-de-passe.component";
 import { PreferenceEmployeComponent } from './preference-employe/preference-employe.component';
@@ -27,20 +29,22 @@ export const routes: Routes = [
         {path:'preference-service',component:PreferenceServiceComponent},
         {path:'preference-employe',component:PreferenceEmployeComponent},
         {path:"nouveau",component:NouveauRendezVousComponent},
-        {path:"historique",component:HistoriqueRendezVousComponent}
+        {path:"historique",component:HistoriqueRendezVousComponent},
     ]},
     { path: 'personnel', component: EmployeComponent ,
     children:[
         {path:'nouveau-horaire',component:AjoutHoraireComponent},
         {path:'liste-horaire',component:ListeHoraireComponent},
         {path:'rdv-employe',component:RdvEmployeComponent},
-        {path:'tacheEmp',component:TacheEmpEffectuerComponent}
+        {path:'tacheEmp',component:TacheEmpEffectuerComponent},
     ]},
     { path: 'manager', component: ManagerComponent ,
     children:[
         { path: 'nouveau-personnel', component: AjoutEmployeComponent },
         { path: 'liste-personnel',component:ListeEmployeComponent},
         { path: 'temps-moyen-travail',component:StatistiqueHoraireComponent},
+        {path:"reservation-jour",component:ReservationParJourComponent},
+        {path:"reservation-mois",component:ReservartionParMoisComponent},
         { path: 'nouveau-service', component: AjoutServiceComponent },
         { path: 'liste-service',component:ListeServiceComponent},
     ]},
