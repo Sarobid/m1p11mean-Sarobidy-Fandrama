@@ -25,12 +25,20 @@ export class HistoriqueRendezVousComponent implements OnInit{
     heureMin:'',
     heureMax:'',
     etat:null
-  }
+  };
+  socket : any = null;
   constructor(private errorService: ErrorService){
-   }
+    this.socket = utilSocket.rendez();
+   
+  }
    ngOnInit(): void {
        this.setListeRendezVous();
        this.setListeService();
+       setInterval(()=>{
+        this.socket.connect(()=>{
+          this.setListeRendezVous();
+        });
+      },socketService.delai);
    }
    recherche(){
     this.setListeRendezVous();
@@ -52,12 +60,8 @@ export class HistoriqueRendezVousComponent implements OnInit{
     this.recherche();
    }
    setListeService(){
-    serv.getAllService((data:any)=>{
+    serviceService.getAllActive((data:any)=>{
       this.services = data;
-    },(error:any)=>{
-      if(error.status === 401 || error.status === 403){
-        this.errorService.afficheError(error.message);
-      }
     })
    }
    setListeRendezVous(){

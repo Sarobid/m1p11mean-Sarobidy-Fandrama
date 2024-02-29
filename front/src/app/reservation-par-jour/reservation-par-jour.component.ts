@@ -19,10 +19,17 @@ export class ReservationParJourComponent implements OnInit{
   jourChart : any = null;
   loadingJour : boolean = false;
   nombreJours : any []=[];
+  socket : any = null;
   constructor(private errorService: ErrorService){
+    this.socket = utilSocket.rendez(); 
   }
   ngOnInit(): void {
     this.setNombreJours();
+    setInterval(()=>{
+      this.socket.connect(()=>{
+        this.setNombreJours();
+      });
+    },socketService.delai);
   }
   recherche(){
     this.setNombreJours();

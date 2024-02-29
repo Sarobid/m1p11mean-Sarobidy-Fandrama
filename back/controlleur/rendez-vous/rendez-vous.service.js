@@ -240,7 +240,7 @@ async function getListRendezVous(employe_id,client_id,service_id, dateDebut,date
             employe:{
                 mdp:0
             }
-        }).sort({date:-1,heureDebutEnMill:1})
+        }).sort({date:-1,heureDebutEnMill:-1})
         //console.log(data);
         return data;
     } catch (error) {

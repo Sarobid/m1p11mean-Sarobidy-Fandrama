@@ -19,11 +19,18 @@ export class ReservartionParMoisComponent implements OnInit{
   loadingMois : boolean = false;
   nombreMois : any []=[];
   listeMois :any []=[];
+  socket : any = null;
   constructor(private errorService: ErrorService){
   this.listeMois = serv.getMois();
+  this.socket = utilSocket.rendez(); 
   }
   ngOnInit(): void {
     this.setNombreJours();
+    setInterval(()=>{
+      this.socket.connect(()=>{
+        this.setNombreJours();
+      });
+    },socketService.delai);
   }
   recherche(){
     this.setNombreJours();

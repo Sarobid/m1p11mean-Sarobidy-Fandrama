@@ -7,5 +7,8 @@ var utilSocket = {
     },
     listeService: () => {
         return socketService.fonction("/service");
+    },
+    rendez : ()=>{
+        return socketService.fonction("/rendez");
     }
 }

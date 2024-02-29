@@ -27,10 +27,15 @@ export class NouveauRendezVousComponent implements OnInit{
   loadingReserver : boolean = false;
   prixTotal : any = 0;
   paye : any = 0;
+  socket : any = null;
   constructor(private errorService: ErrorService,private elementRef: ElementRef){
+    this.socket = utilSocket.rendez();
   }
   ngOnInit(): void {
     this.setServices();
+    setInterval(()=>{
+      this.socket.connect(()=>{});
+    },socketService.delai);
   }
   nouveau(){
     serv.reloadePage();
@@ -91,15 +96,22 @@ export class NouveauRendezVousComponent implements OnInit{
   dragReserver(ev:any,serviceRe : any){
     ev.dataTransfer.setData("text", ev.target.id);
     this.serviceRe = serviceRe;
+    this.erreurs = null;
   }
   dragService(ev:any,service:any) {
     ev.dataTransfer.setData("text", ev.target.id);
     this.service = service;
+    this.erreurs = null;
   }
   validationEmploye(employe:any){
     let value = {service : this.service,employe:employe};
     this.loadingReserver = true;
     rendServ.nouveauRendezVous(this.paye,this.date,value,(data:any)=>{
+      try {
+        this.socket.signale("ok");  
+      } catch (error) {
+        
+      }
       this.loadingReserver = false;
       this.servicesReserver = data;
       this.calculPrixToal();
@@ -144,13 +156,17 @@ export class NouveauRendezVousComponent implements OnInit{
     if(this.serviceRe !== null){
       this.loadingReserver = true;
       rendServ.annulerRendezVous(this.serviceRe._id,(data:any)=>{
+        try {
+          this.socket.signale("ok");  
+        } catch (error) {
+          
+        }
         this.loadingReserver = false;
         this.servicesReserver = data;
         this.serviceRe = null;
         this.calculPrixToal();
         this.rechercheservicesReserverFilter();
         this.recherche();
-
       },(error:any)=>{
         if(error.status === 401 || error.status === 403){
           this.errorService.afficheError(error.message);

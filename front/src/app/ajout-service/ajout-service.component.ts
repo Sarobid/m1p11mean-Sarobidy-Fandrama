@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 // import { ErrorService } from '../../service/service-ts/Error-service';
 
@@ -31,10 +31,10 @@ export class AjoutServiceComponent {
   onSubmit() {
     this.socketService.signale("new");
     serviceService.nouveauService(this.service,(data:any)=>{
-      alert(JSON.stringify(data));
+      //alert(JSON.stringify(data));
     },(err:any)=>{
       this.erreurs = err.erreur;
-      alert(JSON.stringify(this.erreurs))
+      //alert(JSON.stringify(this.erreurs))
     })
   }
   effacerErreur(champ: string) {
